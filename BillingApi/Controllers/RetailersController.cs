@@ -19,7 +19,7 @@ namespace BillingApi.Controllers
             dao = new RetailerDao();
         }
 
-        [HttpGet]
+        [HttpGet,Route("getr")]
         public IHttpActionResult GetRetailer()
         {
             try

@@ -19,7 +19,7 @@ namespace BillingApi.Controllers
             dao = new BillingDao();
         }
 
-        [HttpGet]
+        [HttpGet, Route("getbill")]
         public IHttpActionResult GetBills(int retailerId)
         {
             try
@@ -33,7 +33,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost, Route("addbill")]
         public IHttpActionResult AddBill([FromBody] Bill objbill)
         {
             try
@@ -48,7 +48,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete, Route("deletebill")]
         public IHttpActionResult DeleteBill(int billId)
         {
             try
@@ -63,7 +63,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet, Route("getbillinfo")]
         public IHttpActionResult GetBillInfo(int billId)
         {
             try

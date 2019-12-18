@@ -9,7 +9,7 @@ using BillingLayer.Dao;
 
 namespace BillingApi.Controllers
 {
-    [RoutePrefix("api/Products")]
+    [RoutePrefix("api/productType")]
     public class ProductTypeController : ApiController
     {
         private readonly ProductTypeDao dao;
@@ -19,7 +19,7 @@ namespace BillingApi.Controllers
             dao = new ProductTypeDao();
         }
 
-        [HttpGet]
+        [HttpGet,Route("gett")]
         public IHttpActionResult GetProductTypes(int retailerId)
         {
             try
@@ -33,7 +33,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost,Route("addt")]
         public IHttpActionResult AddProductType([FromBody] ProductType objproductType)
         {
             try
@@ -47,7 +47,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost,Route("updatet")]
         public IHttpActionResult UpdateProductType([FromBody] ProductType objproductType)
         {
             try
@@ -61,7 +61,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete,Route("deletet")]
         public IHttpActionResult DeleteProductType(int typeId)
         {
             try

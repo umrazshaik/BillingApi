@@ -19,7 +19,7 @@ namespace BillingApi.Controllers
             dao = new BrandsDao();
         }
 
-        [HttpGet]
+        [HttpGet,Route("getb")]
         public IHttpActionResult GetBrands(int retailerId)
         {
             try
@@ -33,7 +33,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost,Route("addb")]
         public IHttpActionResult AddBrand([FromBody] Brand objbrand)
         {
             try
@@ -48,7 +48,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost,Route("updateb")]
         public IHttpActionResult UpdateBrand([FromBody] Brand objbrand)
         {
             try
@@ -63,7 +63,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete,Route("deleteb")]
         public IHttpActionResult DeleteBrand(int brandId)
         {
             try

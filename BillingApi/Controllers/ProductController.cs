@@ -19,7 +19,7 @@ namespace BillingApi.Controllers
             dao = new ProductDao();
         }
 
-        [HttpGet]
+        [HttpGet,Route("getp")]
         public IHttpActionResult GetProducts(int retailerId)
         {
             try
@@ -33,7 +33,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost, Route("addp")]
         public IHttpActionResult AddProduct([FromBody] Product objproduct)
         {
             try
@@ -47,7 +47,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost, Route("updatep")]
         public IHttpActionResult UpdateProduct([FromBody] Product objproduct)
         {
             try
@@ -61,7 +61,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete, Route("deletep")]
         public IHttpActionResult DeleteProduct(int productId)
         {
             try

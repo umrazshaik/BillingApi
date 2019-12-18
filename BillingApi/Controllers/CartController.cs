@@ -9,6 +9,7 @@ using BillingLayer.Dao;
 
 namespace BillingApi.Controllers
 {
+    [RoutePrefix("api/cart")]
     public class CartController : ApiController
     {
         private readonly CartDao dao;
@@ -18,7 +19,7 @@ namespace BillingApi.Controllers
             dao = new CartDao();
         }
 
-        [HttpGet]
+        [HttpGet, Route("getp")]
         public IHttpActionResult GetCarts(int retailerId)
         {
             try
@@ -32,7 +33,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost, Route("addc")]
         public IHttpActionResult AddCart([FromBody] Cart objcart)
         {
             try
@@ -46,7 +47,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost, Route("updatec")]
         public IHttpActionResult UpdateCartt([FromBody] Cart objcart)
         {
             try
@@ -60,7 +61,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete, Route("deletec")]
         public IHttpActionResult DeleteCart(int cartId)
         {
             try

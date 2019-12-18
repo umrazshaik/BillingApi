@@ -12,7 +12,7 @@ namespace BillingApi.Controllers
     [RoutePrefix("api/User")]
     public class UsersController : ApiController
     {
-       private readonly UserDao dao;
+        private readonly UserDao dao;
 
         public UsersController()
         {
@@ -20,13 +20,11 @@ namespace BillingApi.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult GetUsers()
+        public IHttpActionResult GetUsers(int retailerId)
         {
             try
             {
-                var retailerId = ((string[])(Request.Headers.GetValues("retailerId")))[0];
-                int retailId =Convert.ToInt32(retailerId);
-                var Usersdata = dao.GetUsers(retailId);
+                var Usersdata = dao.GetUsers(retailerId);
                 return Ok(Usersdata);
             }
             catch (Exception ex)
