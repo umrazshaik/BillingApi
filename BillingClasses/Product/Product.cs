@@ -14,6 +14,8 @@ namespace BillingClasses.Product
 
         public string DisplayName { get; set; }
 
+        public string Code { get; set; }
+
         public int TypeId { get; set; }
 
         public string TypeName { get; set; }

@@ -27,6 +27,7 @@ namespace BillingLayer.Dao
                                    Id = x.ID,
                                    Name = x.NAME,
                                    DisplayName = x.DISPLAY_NAME,
+                                   Code=x.CODE,
                                    RetailId = x.RETAIL_ID.Value,
                                    RetailName = x.RETAILER.NAME,
                                    ActualCost = x.ACTUAL_PRICE.Value,
@@ -55,6 +56,7 @@ namespace BillingLayer.Dao
                 dbproduct.BRAND_ID = objproduct.BrandId;
                 dbproduct.NAME = objproduct.Name;
                 dbproduct.DISPLAY_NAME = objproduct.DisplayName;
+                dbproduct.CODE = objproduct.Code;
                 dbproduct.TYPE_ID = objproduct.TypeId;
                 dbproduct.RETAIL_ID = objproduct.RetailId;
                 dbproduct.ACTUAL_PRICE = objproduct.ActualCost;
@@ -84,6 +86,7 @@ namespace BillingLayer.Dao
                 if (obj != null)
                 {
                     obj.DISPLAY_NAME = objproduct.DisplayName;
+                    obj.CODE = objproduct.Code;
                     obj.BRAND_ID = objproduct.BrandId;
                     obj.TYPE_ID = objproduct.TypeId;
                     obj.ACTUAL_PRICE = objproduct.ActualCost;
@@ -110,7 +113,8 @@ namespace BillingLayer.Dao
                 var obj = db.PRODUCTS.FirstOrDefault(o => o.ID == pId);
                 if (obj != null)
                 {
-                    obj.STATUS = false;
+                    // obj.STATUS = false;
+                    db.PRODUCTS.Remove(obj);
                     db.SaveChanges();
                     deleteP = 1;
                 }

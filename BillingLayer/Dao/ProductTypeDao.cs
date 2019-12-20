@@ -98,7 +98,8 @@ namespace BillingLayer.Dao
                 var obj = db.PRODUCT_TYPE.FirstOrDefault(o => o.ID == pId);
                 if (obj != null)
                 {
-                    obj.STATUS = false;
+                   // obj.STATUS = false;
+                    db.PRODUCT_TYPE.Remove(obj);
                     db.SaveChanges();
                     deleteP = 1;
                 }

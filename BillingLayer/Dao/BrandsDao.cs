@@ -94,7 +94,8 @@ namespace BillingLayer.Dao
                 var obj = db.BRANDS.FirstOrDefault(o => o.ID == bId);
                 if (obj != null)
                 {
-                    obj.STATUS = false;
+                    //obj.STATUS = false;
+                    db.BRANDS.Remove(obj);
                     db.SaveChanges();
                     deleteB = 1;
                 }

@@ -17,12 +17,12 @@ namespace BillingLayer.Model
         public int ID { get; set; }
         public int ITEM_ID { get; set; }
         public int RETAIL_ID { get; set; }
-        public int USER_ID { get; set; }
+        public Nullable<int> USER_ID { get; set; }
         public int QUANTITY { get; set; }
         public Nullable<bool> STATUS { get; set; }
     
-        public virtual USER USER { get; set; }
         public virtual PRODUCT PRODUCT { get; set; }
         public virtual RETAILER RETAILER { get; set; }
+        public virtual USER USER { get; set; }
     }
 }

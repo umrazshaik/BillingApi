@@ -19,7 +19,7 @@ namespace BillingApi.Controllers
             dao = new CartDao();
         }
 
-        [HttpGet, Route("getp")]
+        [HttpGet, Route("getc")]
         public IHttpActionResult GetCarts(int retailerId)
         {
             try

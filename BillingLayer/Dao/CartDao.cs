@@ -27,7 +27,7 @@ namespace BillingLayer.Dao
                                 CartId = x.ID,
                                 ProductId = x.ITEM_ID,
                                 RetailerId = x.RETAIL_ID,
-                                UserId = x.USER_ID,
+                                UserId = x.USER_ID.Value,
                                 Quantity = x.QUANTITY,
                                 ProductName = x.PRODUCT.NAME,
                                 Price = x.PRODUCT.SELLING_PRICE.Value,
@@ -92,7 +92,8 @@ namespace BillingLayer.Dao
                 var obj = db.CARTs.FirstOrDefault(o => o.ID == cId);
                 if (obj != null)
                 {
-                    obj.STATUS = false;
+                    //-obj.STATUS = false;
+                    db.CARTs.Remove(obj);
                     db.SaveChanges();
                     deleteC = 1;
                 }

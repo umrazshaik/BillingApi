@@ -31,10 +31,10 @@ namespace BillingLayer.Model
         public virtual DbSet<PRODUCT_TYPE> PRODUCT_TYPE { get; set; }
         public virtual DbSet<TAX> TAXES { get; set; }
         public virtual DbSet<USER> USERS { get; set; }
-        public virtual DbSet<CART> CARTs { get; set; }
         public virtual DbSet<BILLING_INFO> BILLING_INFO { get; set; }
         public virtual DbSet<BILLING> BILLINGS { get; set; }
-        public virtual DbSet<PRODUCT> PRODUCTS { get; set; }
         public virtual DbSet<RETAILER> RETAILERS { get; set; }
+        public virtual DbSet<PRODUCT> PRODUCTS { get; set; }
+        public virtual DbSet<CART> CARTs { get; set; }
     }
 }
