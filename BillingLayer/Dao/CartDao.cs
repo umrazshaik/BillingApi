@@ -27,7 +27,7 @@ namespace BillingLayer.Dao
                                 CartId = x.ID,
                                 ProductId = x.ITEM_ID,
                                 RetailerId = x.RETAIL_ID,
-                                UserId = x.USER_ID.Value,
+                                UserId = 1,
                                 Quantity = x.QUANTITY,
                                 ProductName = x.PRODUCT.NAME,
                                 Price = x.PRODUCT.SELLING_PRICE.Value,
