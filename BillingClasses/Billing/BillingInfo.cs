@@ -20,9 +20,9 @@ namespace BillingClasses.Billing
 
         public string UserName { get; set; }
 
-        public int CustomerId { get; set; }
-
         public string CustomerName { get; set; }
+
+        public Int64 CustMobile { get; set; }
 
         public double BilledAmount { get; set; }
 

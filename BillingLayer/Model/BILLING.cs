@@ -25,7 +25,8 @@ namespace BillingLayer.Model
         public Nullable<long> BILL_NO { get; set; }
         public int RETAIL_ID { get; set; }
         public Nullable<int> USER_ID { get; set; }
-        public Nullable<int> CUSTOMER_ID { get; set; }
+        public string CUSTOMER_NAME { get; set; }
+        public Nullable<long> CUST_MOBILE { get; set; }
         public Nullable<double> PAID_AMOUNT { get; set; }
         public Nullable<double> TAX_AMOUNT { get; set; }
         public Nullable<double> ACTUAL_AMOUNT { get; set; }
@@ -41,7 +42,6 @@ namespace BillingLayer.Model
         public virtual ICollection<BILLING_INFO> BILLING_INFO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BILLING_TAX_INFO> BILLING_TAX_INFO { get; set; }
-        public virtual CUSTOMER CUSTOMER { get; set; }
         public virtual RETAILER RETAILER { get; set; }
     }
 }

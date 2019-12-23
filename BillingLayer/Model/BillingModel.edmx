@@ -42,7 +42,8 @@
           <Property Name="BILL_NO" Type="bigint" />
           <Property Name="RETAIL_ID" Type="int" Nullable="false" />
           <Property Name="USER_ID" Type="int" />
-          <Property Name="CUSTOMER_ID" Type="int" />
+          <Property Name="CUSTOMER_NAME" Type="varchar" MaxLength="100" />
+          <Property Name="CUST_MOBILE" Type="bigint" />
           <Property Name="PAID_AMOUNT" Type="float" />
           <Property Name="TAX_AMOUNT" Type="float" />
           <Property Name="ACTUAL_AMOUNT" Type="float" />
@@ -220,18 +221,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BILLINGS_CUSTOMERS">
-          <End Role="CUSTOMERS" Type="Self.CUSTOMERS" Multiplicity="0..1" />
-          <End Role="BILLINGS" Type="Self.BILLINGS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CUSTOMERS">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="BILLINGS">
-              <PropertyRef Name="CUSTOMER_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_BILLINGS_RETAILERS">
           <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="1" />
           <End Role="BILLINGS" Type="Self.BILLINGS" Multiplicity="*" />
@@ -404,10 +393,6 @@
             <End Role="TAXES" EntitySet="TAXES" />
             <End Role="BILLING_TAX_INFO" EntitySet="BILLING_TAX_INFO" />
           </AssociationSet>
-          <AssociationSet Name="FK_BILLINGS_CUSTOMERS" Association="Self.FK_BILLINGS_CUSTOMERS">
-            <End Role="CUSTOMERS" EntitySet="CUSTOMERS" />
-            <End Role="BILLINGS" EntitySet="BILLINGS" />
-          </AssociationSet>
           <AssociationSet Name="FK_BILLINGS_RETAILERS" Association="Self.FK_BILLINGS_RETAILERS">
             <End Role="RETAILERS" EntitySet="RETAILERS" />
             <End Role="BILLINGS" EntitySet="BILLINGS" />
@@ -505,7 +490,6 @@
           <Property Name="UPDATED_BY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
           <Property Name="UPDATED_DATE" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="BILLINGS" Relationship="BillingAppDBModel.FK_BILLINGS_CUSTOMERS" FromRole="CUSTOMER" ToRole="BILLING" />
           <NavigationProperty Name="RETAILER" Relationship="BillingAppDBModel.FK_CUSTOMERS_RETAILERS" FromRole="CUSTOMER" ToRole="RETAILER" />
         </EntityType>
         <EntityType Name="PRODUCT_TYPE">
@@ -595,24 +579,7 @@
             <End Role="USERS1" EntitySet="USERS" />
           </AssociationSet>
           <EntitySet Name="BILLING_INFO" EntityType="BillingAppDBModel.BILLING_INFO" />
-          <EntitySet Name="BILLINGS" EntityType="BillingAppDBModel.BILLING" />
-          <AssociationSet Name="FK_BILLING_INFO_BILLINGS" Association="BillingAppDBModel.FK_BILLING_INFO_BILLINGS">
-            <End Role="BILLING" EntitySet="BILLINGS" />
-            <End Role="BILLING_INFO" EntitySet="BILLING_INFO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BILLING_TAX_INFO_BILLINGS" Association="BillingAppDBModel.FK_BILLING_TAX_INFO_BILLINGS">
-            <End Role="BILLING" EntitySet="BILLINGS" />
-            <End Role="BILLING_TAX_INFO" EntitySet="BILLING_TAX_INFO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BILLINGS_CUSTOMERS" Association="BillingAppDBModel.FK_BILLINGS_CUSTOMERS">
-            <End Role="CUSTOMER" EntitySet="CUSTOMERS" />
-            <End Role="BILLING" EntitySet="BILLINGS" />
-          </AssociationSet>
           <EntitySet Name="RETAILERS" EntityType="BillingAppDBModel.RETAILER" />
-          <AssociationSet Name="FK_BILLINGS_RETAILERS" Association="BillingAppDBModel.FK_BILLINGS_RETAILERS">
-            <End Role="RETAILER" EntitySet="RETAILERS" />
-            <End Role="BILLING" EntitySet="BILLINGS" />
-          </AssociationSet>
           <AssociationSet Name="FK_BRANDS_RETAILERS" Association="BillingAppDBModel.FK_BRANDS_RETAILERS">
             <End Role="RETAILER" EntitySet="RETAILERS" />
             <End Role="BRAND" EntitySet="BRANDS" />
@@ -659,6 +626,19 @@
             <End Role="USER" EntitySet="USERS" />
             <End Role="CART" EntitySet="CARTs" />
           </AssociationSet>
+          <EntitySet Name="BILLINGS" EntityType="BillingAppDBModel.BILLING" />
+          <AssociationSet Name="FK_BILLING_INFO_BILLINGS" Association="BillingAppDBModel.FK_BILLING_INFO_BILLINGS">
+            <End Role="BILLING" EntitySet="BILLINGS" />
+            <End Role="BILLING_INFO" EntitySet="BILLING_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BILLING_TAX_INFO_BILLINGS" Association="BillingAppDBModel.FK_BILLING_TAX_INFO_BILLINGS">
+            <End Role="BILLING" EntitySet="BILLINGS" />
+            <End Role="BILLING_TAX_INFO" EntitySet="BILLING_TAX_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BILLINGS_RETAILERS" Association="BillingAppDBModel.FK_BILLINGS_RETAILERS">
+            <End Role="RETAILER" EntitySet="RETAILERS" />
+            <End Role="BILLING" EntitySet="BILLINGS" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="BILLING_INFO">
           <Key>
@@ -675,69 +655,9 @@
           <Property Name="UPDATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
           <Property Name="UPDATED_DATE" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="BILLING" Relationship="BillingAppDBModel.FK_BILLING_INFO_BILLINGS" FromRole="BILLING_INFO" ToRole="BILLING" />
           <NavigationProperty Name="PRODUCT" Relationship="BillingAppDBModel.FK_BILLING_INFO_PRODUCTS" FromRole="BILLING_INFO" ToRole="PRODUCT" />
+          <NavigationProperty Name="BILLING" Relationship="BillingAppDBModel.FK_BILLING_INFO_BILLINGS" FromRole="BILLING_INFO" ToRole="BILLING" />
         </EntityType>
-        <EntityType Name="BILLING">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BILL_NO" Type="Int64" />
-          <Property Name="RETAIL_ID" Type="Int32" Nullable="false" />
-          <Property Name="USER_ID" Type="Int32" />
-          <Property Name="CUSTOMER_ID" Type="Int32" />
-          <Property Name="PAID_AMOUNT" Type="Double" />
-          <Property Name="TAX_AMOUNT" Type="Double" />
-          <Property Name="ACTUAL_AMOUNT" Type="Double" />
-          <Property Name="BILLED_AMOUNT" Type="Double" />
-          <Property Name="PAYMENT_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="STATUS" Type="Boolean" />
-          <Property Name="CREATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UPDATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
-          <Property Name="UPDATED_DATE" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="BILLING_INFO" Relationship="BillingAppDBModel.FK_BILLING_INFO_BILLINGS" FromRole="BILLING" ToRole="BILLING_INFO" />
-          <NavigationProperty Name="BILLING_TAX_INFO" Relationship="BillingAppDBModel.FK_BILLING_TAX_INFO_BILLINGS" FromRole="BILLING" ToRole="BILLING_TAX_INFO" />
-          <NavigationProperty Name="CUSTOMER" Relationship="BillingAppDBModel.FK_BILLINGS_CUSTOMERS" FromRole="BILLING" ToRole="CUSTOMER" />
-          <NavigationProperty Name="RETAILER" Relationship="BillingAppDBModel.FK_BILLINGS_RETAILERS" FromRole="BILLING" ToRole="RETAILER" />
-        </EntityType>
-        <Association Name="FK_BILLING_INFO_BILLINGS">
-          <End Type="BillingAppDBModel.BILLING" Role="BILLING" Multiplicity="0..1" />
-          <End Type="BillingAppDBModel.BILLING_INFO" Role="BILLING_INFO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BILLING">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="BILLING_INFO">
-              <PropertyRef Name="BILL_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BILLING_TAX_INFO_BILLINGS">
-          <End Type="BillingAppDBModel.BILLING" Role="BILLING" Multiplicity="0..1" />
-          <End Type="BillingAppDBModel.BILLING_TAX_INFO" Role="BILLING_TAX_INFO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BILLING">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="BILLING_TAX_INFO">
-              <PropertyRef Name="BILL_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BILLINGS_CUSTOMERS">
-          <End Type="BillingAppDBModel.CUSTOMER" Role="CUSTOMER" Multiplicity="0..1" />
-          <End Type="BillingAppDBModel.BILLING" Role="BILLING" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CUSTOMER">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="BILLING">
-              <PropertyRef Name="CUSTOMER_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="RETAILER">
           <Key>
             <PropertyRef Name="ID" />
@@ -757,26 +677,14 @@
           <Property Name="UPDATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
           <Property Name="UPDATED_DATE" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="BILLINGS" Relationship="BillingAppDBModel.FK_BILLINGS_RETAILERS" FromRole="RETAILER" ToRole="BILLING" />
           <NavigationProperty Name="BRANDS" Relationship="BillingAppDBModel.FK_BRANDS_RETAILERS" FromRole="RETAILER" ToRole="BRAND" />
           <NavigationProperty Name="CUSTOMERS" Relationship="BillingAppDBModel.FK_CUSTOMERS_RETAILERS" FromRole="RETAILER" ToRole="CUSTOMER" />
           <NavigationProperty Name="PRODUCT_TYPE" Relationship="BillingAppDBModel.FK_PRODUCT_TYPE_RETAILERS" FromRole="RETAILER" ToRole="PRODUCT_TYPE" />
           <NavigationProperty Name="USERS" Relationship="BillingAppDBModel.FK_USERS_RETAILERS" FromRole="RETAILER" ToRole="USER" />
           <NavigationProperty Name="PRODUCTS" Relationship="BillingAppDBModel.FK_PRODUCTS_RETAILERS" FromRole="RETAILER" ToRole="PRODUCT" />
           <NavigationProperty Name="CARTs" Relationship="BillingAppDBModel.FK_CART_RETAILERS" FromRole="RETAILER" ToRole="CART" />
+          <NavigationProperty Name="BILLINGS" Relationship="BillingAppDBModel.FK_BILLINGS_RETAILERS" FromRole="RETAILER" ToRole="BILLING" />
         </EntityType>
-        <Association Name="FK_BILLINGS_RETAILERS">
-          <End Type="BillingAppDBModel.RETAILER" Role="RETAILER" Multiplicity="1" />
-          <End Type="BillingAppDBModel.BILLING" Role="BILLING" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RETAILER">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="BILLING">
-              <PropertyRef Name="RETAIL_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_BRANDS_RETAILERS">
           <End Type="BillingAppDBModel.RETAILER" Role="RETAILER" Multiplicity="0..1" />
           <End Type="BillingAppDBModel.BRAND" Role="BRAND" Multiplicity="*" />
@@ -947,6 +855,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BILLING">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BILL_NO" Type="Int64" />
+          <Property Name="RETAIL_ID" Type="Int32" Nullable="false" />
+          <Property Name="USER_ID" Type="Int32" />
+          <Property Name="CUSTOMER_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUST_MOBILE" Type="Int64" />
+          <Property Name="PAID_AMOUNT" Type="Double" />
+          <Property Name="TAX_AMOUNT" Type="Double" />
+          <Property Name="ACTUAL_AMOUNT" Type="Double" />
+          <Property Name="BILLED_AMOUNT" Type="Double" />
+          <Property Name="PAYMENT_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="STATUS" Type="Boolean" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UPDATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="UPDATED_DATE" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BILLING_INFO" Relationship="BillingAppDBModel.FK_BILLING_INFO_BILLINGS" FromRole="BILLING" ToRole="BILLING_INFO" />
+          <NavigationProperty Name="BILLING_TAX_INFO" Relationship="BillingAppDBModel.FK_BILLING_TAX_INFO_BILLINGS" FromRole="BILLING" ToRole="BILLING_TAX_INFO" />
+          <NavigationProperty Name="RETAILER" Relationship="BillingAppDBModel.FK_BILLINGS_RETAILERS" FromRole="BILLING" ToRole="RETAILER" />
+        </EntityType>
+        <Association Name="FK_BILLING_INFO_BILLINGS">
+          <End Type="BillingAppDBModel.BILLING" Role="BILLING" Multiplicity="0..1" />
+          <End Type="BillingAppDBModel.BILLING_INFO" Role="BILLING_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BILLING">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILLING_INFO">
+              <PropertyRef Name="BILL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BILLING_TAX_INFO_BILLINGS">
+          <End Type="BillingAppDBModel.BILLING" Role="BILLING" Multiplicity="0..1" />
+          <End Type="BillingAppDBModel.BILLING_TAX_INFO" Role="BILLING_TAX_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BILLING">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILLING_TAX_INFO">
+              <PropertyRef Name="BILL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BILLINGS_RETAILERS">
+          <End Type="BillingAppDBModel.RETAILER" Role="RETAILER" Multiplicity="1" />
+          <End Type="BillingAppDBModel.BILLING" Role="BILLING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RETAILER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILLING">
+              <PropertyRef Name="RETAIL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1057,27 +1025,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BILLINGS">
-            <EntityTypeMapping TypeName="BillingAppDBModel.BILLING">
-              <MappingFragment StoreEntitySet="BILLINGS">
-                <ScalarProperty Name="UPDATED_DATE" ColumnName="UPDATED_DATE" />
-                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
-                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
-                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
-                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-                <ScalarProperty Name="PAYMENT_TYPE" ColumnName="PAYMENT_TYPE" />
-                <ScalarProperty Name="BILLED_AMOUNT" ColumnName="BILLED_AMOUNT" />
-                <ScalarProperty Name="ACTUAL_AMOUNT" ColumnName="ACTUAL_AMOUNT" />
-                <ScalarProperty Name="TAX_AMOUNT" ColumnName="TAX_AMOUNT" />
-                <ScalarProperty Name="PAID_AMOUNT" ColumnName="PAID_AMOUNT" />
-                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
-                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
-                <ScalarProperty Name="RETAIL_ID" ColumnName="RETAIL_ID" />
-                <ScalarProperty Name="BILL_NO" ColumnName="BILL_NO" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="RETAILERS">
             <EntityTypeMapping TypeName="BillingAppDBModel.RETAILER">
               <MappingFragment StoreEntitySet="RETAILERS">
@@ -1127,6 +1074,28 @@
                 <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
                 <ScalarProperty Name="RETAIL_ID" ColumnName="RETAIL_ID" />
                 <ScalarProperty Name="ITEM_ID" ColumnName="ITEM_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BILLINGS">
+            <EntityTypeMapping TypeName="BillingAppDBModel.BILLING">
+              <MappingFragment StoreEntitySet="BILLINGS">
+                <ScalarProperty Name="UPDATED_DATE" ColumnName="UPDATED_DATE" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="PAYMENT_TYPE" ColumnName="PAYMENT_TYPE" />
+                <ScalarProperty Name="BILLED_AMOUNT" ColumnName="BILLED_AMOUNT" />
+                <ScalarProperty Name="ACTUAL_AMOUNT" ColumnName="ACTUAL_AMOUNT" />
+                <ScalarProperty Name="TAX_AMOUNT" ColumnName="TAX_AMOUNT" />
+                <ScalarProperty Name="PAID_AMOUNT" ColumnName="PAID_AMOUNT" />
+                <ScalarProperty Name="CUST_MOBILE" ColumnName="CUST_MOBILE" />
+                <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="RETAIL_ID" ColumnName="RETAIL_ID" />
+                <ScalarProperty Name="BILL_NO" ColumnName="BILL_NO" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

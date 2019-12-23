@@ -14,12 +14,7 @@
         <AssociationConnector Association="BillingAppDBModel.FK_BILLING_TAX_INFO_TAXES" ManuallyRouted="false" />
         <AssociationConnector Association="BillingAppDBModel.FK_USERS_USERS" ManuallyRouted="false" />
         <EntityTypeShape EntityType="BillingAppDBModel.BILLING_INFO" Width="1.5" PointX="10.5" PointY="14" />
-        <EntityTypeShape EntityType="BillingAppDBModel.BILLING" Width="1.5" PointX="5.25" PointY="12.5" />
-        <AssociationConnector Association="BillingAppDBModel.FK_BILLING_INFO_BILLINGS" />
-        <AssociationConnector Association="BillingAppDBModel.FK_BILLING_TAX_INFO_BILLINGS" />
-        <AssociationConnector Association="BillingAppDBModel.FK_BILLINGS_CUSTOMERS" />
         <EntityTypeShape EntityType="BillingAppDBModel.RETAILER" Width="1.5" PointX="0.75" PointY="16.375" />
-        <AssociationConnector Association="BillingAppDBModel.FK_BILLINGS_RETAILERS" />
         <AssociationConnector Association="BillingAppDBModel.FK_BRANDS_RETAILERS" />
         <AssociationConnector Association="BillingAppDBModel.FK_CUSTOMERS_RETAILERS" />
         <AssociationConnector Association="BillingAppDBModel.FK_PRODUCT_TYPE_RETAILERS" />
@@ -33,6 +28,10 @@
         <AssociationConnector Association="BillingAppDBModel.FK_CART_PRODUCTS" />
         <AssociationConnector Association="BillingAppDBModel.FK_CART_RETAILERS" />
         <AssociationConnector Association="BillingAppDBModel.FK_CART_USERS" />
+        <EntityTypeShape EntityType="BillingAppDBModel.BILLING" Width="1.5" PointX="3" PointY="27.625" />
+        <AssociationConnector Association="BillingAppDBModel.FK_BILLING_INFO_BILLINGS" />
+        <AssociationConnector Association="BillingAppDBModel.FK_BILLING_TAX_INFO_BILLINGS" />
+        <AssociationConnector Association="BillingAppDBModel.FK_BILLINGS_RETAILERS" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

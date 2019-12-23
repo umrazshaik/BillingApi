@@ -21,8 +21,9 @@ namespace BillingLayer.Dao
                 Random random = new Random();
                 objbillinfo.BILL_NO = random.Next();
                 objbillinfo.RETAIL_ID = bill.BillInfo.RetailId;
-                objbillinfo.USER_ID = bill.BillInfo.UserId;
-                objbillinfo.CUSTOMER_ID = bill.BillInfo.CustomerId;
+                objbillinfo.USER_ID = 1;
+                objbillinfo.CUSTOMER_NAME = bill.BillInfo.CustomerName;
+                objbillinfo.CUST_MOBILE = bill.BillInfo.CustMobile;
                 objbillinfo.PAID_AMOUNT = bill.BillInfo.PaidAmount;
                 objbillinfo.TAX_AMOUNT = bill.BillInfo.TaxAmount;
                 objbillinfo.ACTUAL_AMOUNT = bill.BillInfo.ActualAmount;
@@ -110,8 +111,9 @@ namespace BillingLayer.Dao
                                 BillNo = x.BILL_NO.Value,
                                 CreatedBy = x.CREATED_BY,
                                 CreatedDate = x.CREATED_DATE.Value,
-                                CustomerId = x.CUSTOMER_ID.Value,
                                 PaidAmount = x.PAID_AMOUNT.Value,
+                                CustomerName=x.CUSTOMER_NAME,
+                                CustMobile=x.CUST_MOBILE.Value,
                                 PaymentType = x.PAYMENT_TYPE,
                                 RetailId = x.RETAIL_ID,
                                 Status = x.STATUS.Value,
@@ -144,7 +146,8 @@ namespace BillingLayer.Dao
                                    BillNo = x.BILL_NO.Value,
                                    CreatedBy = x.CREATED_BY,
                                    CreatedDate = x.CREATED_DATE.Value,
-                                   CustomerId = x.CUSTOMER_ID.Value,
+                                   CustomerName=x.CUSTOMER_NAME,
+                                   CustMobile=x.CUST_MOBILE.Value,
                                    PaidAmount = x.PAID_AMOUNT.Value,
                                    PaymentType = x.PAYMENT_TYPE,
                                    RetailId = x.RETAIL_ID,

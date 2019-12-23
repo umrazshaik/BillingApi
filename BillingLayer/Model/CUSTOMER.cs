@@ -14,12 +14,6 @@ namespace BillingLayer.Model
     
     public partial class CUSTOMER
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CUSTOMER()
-        {
-            this.BILLINGS = new HashSet<BILLING>();
-        }
-    
         public int ID { get; set; }
         public Nullable<int> RETAIL_ID { get; set; }
         public string NAME { get; set; }
@@ -31,8 +25,6 @@ namespace BillingLayer.Model
         public Nullable<System.DateTime> CREATED_DATE { get; set; }
         public Nullable<System.DateTime> UPDATED_DATE { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BILLING> BILLINGS { get; set; }
         public virtual RETAILER RETAILER { get; set; }
     }
 }

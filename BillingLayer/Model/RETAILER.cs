@@ -17,13 +17,13 @@ namespace BillingLayer.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RETAILER()
         {
-            this.BILLINGS = new HashSet<BILLING>();
             this.BRANDS = new HashSet<BRAND>();
             this.CUSTOMERS = new HashSet<CUSTOMER>();
             this.PRODUCT_TYPE = new HashSet<PRODUCT_TYPE>();
             this.USERS = new HashSet<USER>();
             this.PRODUCTS = new HashSet<PRODUCT>();
             this.CARTs = new HashSet<CART>();
+            this.BILLINGS = new HashSet<BILLING>();
         }
     
         public int ID { get; set; }
@@ -43,8 +43,6 @@ namespace BillingLayer.Model
         public Nullable<System.DateTime> UPDATED_DATE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BILLING> BILLINGS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BRAND> BRANDS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CUSTOMER> CUSTOMERS { get; set; }
@@ -56,5 +54,7 @@ namespace BillingLayer.Model
         public virtual ICollection<PRODUCT> PRODUCTS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CART> CARTs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BILLING> BILLINGS { get; set; }
     }
 }
