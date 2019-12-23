@@ -26,7 +26,7 @@ namespace BillingLayer.Model
         public Nullable<System.DateTime> CREATED_DATE { get; set; }
         public Nullable<System.DateTime> UPDATED_DATE { get; set; }
     
-        public virtual PRODUCT PRODUCT { get; set; }
         public virtual BILLING BILLING { get; set; }
+        public virtual PRODUCT PRODUCT { get; set; }
     }
 }

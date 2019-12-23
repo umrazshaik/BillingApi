@@ -27,6 +27,10 @@ namespace BillingClasses.Common
 
         public double SGST { get; set; }
 
+        public int CGSTPercentage { get; set; }
+
+        public int SGSTPercentage { get; set; }
+
         public double Price { get; set; }
 
         public double TotalPrice { get; set; }

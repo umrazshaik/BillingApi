@@ -22,6 +22,10 @@ namespace BillingClasses.Billing
 
         public double Tax { get; set; }
 
+        public int CGSTPercentage { get; set; }
+
+        public int SGSTPercentage { get; set; }
+
         public bool Status { get; set; }
 
         public string CreatedBy { get; set; }

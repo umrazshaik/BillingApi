@@ -48,7 +48,7 @@ namespace BillingApi.Controllers
         }
 
         [HttpPost, Route("updatec")]
-        public IHttpActionResult UpdateCartt([FromBody] Cart objcart)
+        public IHttpActionResult UpdateCartt([FromBody] List<Cart> objcart)
         {
             try
             {

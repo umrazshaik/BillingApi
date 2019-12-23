@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\BillingApi\BillingLayer\Model\BillingModel.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Umraz\18-12-19\umrazshaik\BillingApi\BillingLayer\Model\BillingModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

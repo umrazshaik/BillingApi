@@ -18,6 +18,10 @@ namespace BillingClasses.Common
 
         public string RetailName { get; set; }
 
+        public string Password { get; set; }
+
+        public string UserType { get; set; }
+
         public bool Status { get; set; }
 
         public string CreatedBy { get; set; }

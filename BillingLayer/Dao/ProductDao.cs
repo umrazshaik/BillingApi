@@ -32,6 +32,8 @@ namespace BillingLayer.Dao
                                    RetailName = x.RETAILER.NAME,
                                    ActualCost = x.ACTUAL_PRICE.Value,
                                    SellingCost = x.SELLING_PRICE.Value,
+                                   SGST=x.SGST.Value,
+                                   CGST=x.CGST.Value,
                                    Status = x.STATUS.Value,
                                    TypeId = x.TYPE_ID.Value,
                                    TypeName = x.PRODUCT_TYPE.TYPE,
@@ -61,6 +63,8 @@ namespace BillingLayer.Dao
                 dbproduct.RETAIL_ID = objproduct.RetailId;
                 dbproduct.ACTUAL_PRICE = objproduct.ActualCost;
                 dbproduct.SELLING_PRICE = objproduct.SellingCost;
+                dbproduct.SGST = objproduct.SGST;
+                dbproduct.CGST = objproduct.CGST;
                 dbproduct.CREATED_BY = objproduct.CreatedBy;
                 dbproduct.CREATED_DATE = DateTime.Now;
                 dbproduct.UPDATED_BY = objproduct.UpdatedBy;
@@ -91,6 +95,8 @@ namespace BillingLayer.Dao
                     obj.TYPE_ID = objproduct.TypeId;
                     obj.ACTUAL_PRICE = objproduct.ActualCost;
                     obj.SELLING_PRICE = objproduct.SellingCost;
+                    obj.SGST = objproduct.SGST;
+                    obj.CGST = objproduct.CGST;
                     obj.STATUS = objproduct.Status;
                     obj.UPDATED_BY = objproduct.UpdatedBy;
                     obj.UPDATE_DATE = DateTime.Now;

@@ -30,6 +30,8 @@ namespace BillingLayer.Model
         public Nullable<int> RETAIL_ID { get; set; }
         public Nullable<double> SELLING_PRICE { get; set; }
         public Nullable<double> ACTUAL_PRICE { get; set; }
+        public Nullable<int> SGST { get; set; }
+        public Nullable<int> CGST { get; set; }
         public Nullable<bool> STATUS { get; set; }
         public string CREATED_BY { get; set; }
         public string UPDATED_BY { get; set; }
@@ -39,9 +41,9 @@ namespace BillingLayer.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BILLING_INFO> BILLING_INFO { get; set; }
         public virtual BRAND BRAND { get; set; }
-        public virtual PRODUCT_TYPE PRODUCT_TYPE { get; set; }
-        public virtual RETAILER RETAILER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CART> CARTs { get; set; }
+        public virtual PRODUCT_TYPE PRODUCT_TYPE { get; set; }
+        public virtual RETAILER RETAILER { get; set; }
     }
 }

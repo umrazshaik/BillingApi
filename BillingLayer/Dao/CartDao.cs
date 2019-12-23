@@ -13,15 +13,14 @@ namespace BillingLayer.Dao
     {
         BillingAppDBEntities db = new BillingAppDBEntities();
 
-        double SGST = Convert.ToDouble(ConfigurationSettings.AppSettings["SGST"]);
-        double CGST = Convert.ToDouble(ConfigurationSettings.AppSettings["CGST"]);
-
         public List<Cart> GetCarts(int retailerId)
         {
             List<Cart> lstcarts;
             try
             {
                 lstcarts = (from x in db.CARTs.Where(o => o.RETAIL_ID == retailerId)
+                            let sgst = (x.PRODUCT.SGST != null && x.PRODUCT.SGST.Value > 0) ? x.PRODUCT.SGST.Value : 0
+                            let cgst = (x.PRODUCT.CGST != null && x.PRODUCT.CGST.Value > 0) ? x.PRODUCT.CGST.Value : 0
                             select new Cart
                             {
                                 CartId = x.ID,
@@ -31,10 +30,12 @@ namespace BillingLayer.Dao
                                 Quantity = x.QUANTITY,
                                 ProductName = x.PRODUCT.NAME,
                                 Price = x.PRODUCT.SELLING_PRICE.Value,
-                                CGST = (!string.IsNullOrEmpty(CGST.ToString())) ? (x.PRODUCT.SELLING_PRICE.Value) * (CGST) / 100 : 0,
-                                SGST = (!string.IsNullOrEmpty(SGST.ToString())) ? (x.PRODUCT.SELLING_PRICE.Value) * (SGST) / 100 : 0,
-                                TaxAmount = (!string.IsNullOrEmpty(CGST.ToString()) && !string.IsNullOrEmpty(SGST.ToString())) ? (x.PRODUCT.SELLING_PRICE.Value) * (SGST + CGST) / 100 : 0,
-                                TotalPrice = (!string.IsNullOrEmpty(CGST.ToString()) && !string.IsNullOrEmpty(SGST.ToString())) ? ((x.PRODUCT.SELLING_PRICE.Value) * (SGST + CGST) / 100) + x.PRODUCT.SELLING_PRICE.Value : x.PRODUCT.SELLING_PRICE.Value
+                                CGST = ((x.PRODUCT.SELLING_PRICE.Value) * (cgst) / 100)* x.QUANTITY,
+                                SGST = ((x.PRODUCT.SELLING_PRICE.Value) * (sgst) / 100)* x.QUANTITY,
+                                CGSTPercentage=cgst,
+                                SGSTPercentage=sgst,
+                                TaxAmount = ((x.PRODUCT.SELLING_PRICE.Value) * (sgst + cgst) / 100)* x.QUANTITY,
+                                TotalPrice = (((x.PRODUCT.SELLING_PRICE.Value) * (sgst + cgst) / 100) + x.PRODUCT.SELLING_PRICE.Value)* x.QUANTITY
                             }).ToList();
             }
             catch (Exception ex)
@@ -64,17 +65,20 @@ namespace BillingLayer.Dao
             return addC;
         }
 
-        public int UpdateCart(Cart objcart)
+        public int UpdateCart(List<Cart> objcarts)
         {
             int updateC = 0;
             try
             {
-                var obj = db.CARTs.FirstOrDefault(o => o.ID == objcart.CartId);
-                if (obj != null)
+                foreach (var item in objcarts)
                 {
-                    obj.QUANTITY = objcart.Quantity;
-                    db.SaveChanges();
-                    updateC = 1;
+                    var obj = db.CARTs.FirstOrDefault(o => o.ID == item.CartId);
+                    if (obj != null)
+                    {
+                        obj.QUANTITY = item.Quantity;
+                        db.SaveChanges();
+                        updateC = 1;
+                    }
                 }
             }
             catch (Exception ex)

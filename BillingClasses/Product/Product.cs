@@ -32,6 +32,10 @@ namespace BillingClasses.Product
 
         public double SellingCost { get; set; }
 
+        public int SGST { get; set; }
+
+        public int CGST { get; set; }
+
         public bool Status { get; set; }
 
         public string CreatedBy { get; set; }

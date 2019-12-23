@@ -30,6 +30,7 @@ namespace BillingLayer.Dao
                                 UpdatedBy=x.UPDATED_BY,
                                 CreatedDate=x.CREATED_DATE.Value,
                                 UpdatedDate=x.UPDATED_DATE.Value,
+                                Password=x.PASSWORD,
                                 Status=x.STATUS.Value
 
                             }).ToList();

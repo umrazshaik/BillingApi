@@ -16,6 +16,12 @@ namespace BillingClasses.Common
 
         public string Address { get; set; }
 
+        public string ShopNo { get; set; }
+
+        public string Building { get; set; }
+
+        public string Area { get; set; }
+
         public Int64 Mobile { get; set; }
 
         public Int64 AlternateMob { get; set; }

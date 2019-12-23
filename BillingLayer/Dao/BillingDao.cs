@@ -69,6 +69,12 @@ namespace BillingLayer.Dao
                     db.SaveChanges();
                     billP = 1;
                 }
+                if(billP==1)
+                {
+                    var carts = db.CARTs.ToList();
+                    db.Database.ExecuteSqlCommand(string.Format("DELETE  FROM Cart"));
+                    db.SaveChanges();
+                }
             }
             catch (Exception ex)
             {
@@ -167,6 +173,8 @@ namespace BillingLayer.Dao
                                                    ProductId=y.PRODUCT_ID.Value,
                                                    Quantity=y.QUANTITY.Value,
                                                    Tax=y.TAX.Value,
+                                                   CGSTPercentage=y.PRODUCT.CGST.Value,
+                                                   SGSTPercentage=y.PRODUCT.SGST.Value,
                                                    Status=y.STATUS.Value
                                                }).ToList()
 
