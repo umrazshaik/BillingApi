@@ -21,7 +21,7 @@ namespace BillingLayer.Dao
                 Random random = new Random();
                 objbillinfo.BILL_NO = random.Next();
                 objbillinfo.RETAIL_ID = bill.BillInfo.RetailId;
-                objbillinfo.USER_ID = 1;
+                objbillinfo.USER_ID = bill.BillInfo.UserId;
                 objbillinfo.CUSTOMER_NAME = bill.BillInfo.CustomerName;
                 objbillinfo.CUST_MOBILE = bill.BillInfo.CustMobile;
                 objbillinfo.PAID_AMOUNT = bill.BillInfo.PaidAmount;
@@ -108,7 +108,7 @@ namespace BillingLayer.Dao
             List<BillingInfo> lstBills = null;
             try
             {
-                lstBills = (from x in db.BILLINGS.Where(o => o.RETAIL_ID == retailerId)
+                lstBills = (from x in db.BILLINGS.Where(o => o.RETAIL_ID == retailerId && o.STATUS==true)
                             select new BillingInfo
                             {
                                 ActualAmount = x.ACTUAL_AMOUNT.Value,
@@ -170,6 +170,7 @@ namespace BillingLayer.Dao
                                                    BillProductId=y.ID,
                                                    Price=y.PRICE.Value,
                                                    ProductName=y.PRODUCT.NAME,
+                                                   Code=y.PRODUCT.CODE,
                                                    ProductId=y.PRODUCT_ID.Value,
                                                    Quantity=y.QUANTITY.Value,
                                                    Tax=y.TAX.Value,

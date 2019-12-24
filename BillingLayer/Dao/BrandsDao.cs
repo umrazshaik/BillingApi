@@ -92,7 +92,8 @@ namespace BillingLayer.Dao
             try
             {
                 var obj = db.BRANDS.FirstOrDefault(o => o.ID == bId);
-                if (obj != null)
+                int dependencycount = db.PRODUCTS.Count(o => o.BRAND_ID == bId);
+                if (obj != null && dependencycount.Equals(0))
                 {
                     //obj.STATUS = false;
                     db.BRANDS.Remove(obj);

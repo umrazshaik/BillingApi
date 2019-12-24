@@ -22,7 +22,7 @@ namespace BillingLayer.Model
         public Nullable<bool> STATUS { get; set; }
     
         public virtual RETAILER RETAILER { get; set; }
-        public virtual PRODUCT PRODUCT { get; set; }
         public virtual USER USER { get; set; }
+        public virtual PRODUCT PRODUCT { get; set; }
     }
 }

@@ -65,6 +65,7 @@ namespace BillingLayer.Dao
                         dbretailer.PIN_CODE = objretailer.PinCode;
                         dbretailer.CITY = objretailer.City;
                         dbretailer.DISTRICT = objretailer.District;
+                        dbretailer.STATE = objretailer.State;
                         dbretailer.STATUS = true;
                         dbretailer.CREATED_BY = "Admin";
                         dbretailer.UPDATED_BY = "Admin";

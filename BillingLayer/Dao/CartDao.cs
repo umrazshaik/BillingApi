@@ -26,7 +26,7 @@ namespace BillingLayer.Dao
                                 CartId = x.ID,
                                 ProductId = x.ITEM_ID,
                                 RetailerId = x.RETAIL_ID,
-                                UserId = 1,
+                                UserId = x.USER_ID.Value,
                                 Quantity = x.QUANTITY,
                                 ProductName = x.PRODUCT.NAME,
                                 Price = x.PRODUCT.SELLING_PRICE.Value,
@@ -52,6 +52,7 @@ namespace BillingLayer.Dao
             {
                 CART dbcart = new CART();
                 dbcart.RETAIL_ID = objcart.RetailerId;
+                dbcart.USER_ID = objcart.UserId;
                 dbcart.ITEM_ID = objcart.ProductId;
                 dbcart.QUANTITY = objcart.Quantity;
                 db.CARTs.Add(dbcart);

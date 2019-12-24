@@ -117,7 +117,9 @@ namespace BillingLayer.Dao
             try
             {
                 var obj = db.PRODUCTS.FirstOrDefault(o => o.ID == pId);
-                if (obj != null)
+                int dependency1 = db.CARTs.Count(o => o.ITEM_ID == pId);
+                int dependency2 = db.BILLING_INFO.Count(o => o.PRODUCT_ID == pId);
+                if (obj != null && dependency1.Equals(0) && dependency2.Equals(0))
                 {
                     // obj.STATUS = false;
                     db.PRODUCTS.Remove(obj);

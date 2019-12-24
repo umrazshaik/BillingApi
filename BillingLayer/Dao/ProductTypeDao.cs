@@ -18,17 +18,17 @@ namespace BillingLayer.Dao
             try
             {
                 lstproductType = (from x in db.PRODUCT_TYPE.Where(o => o.RETAIL_ID == retailerId)
-                               select new ProductType
-                               {
-                                   CreatedBy = x.CREATED_BY,
-                                   CreatedDate = x.CREATED_DATE.Value,
-                                   Name = x.TYPE,
-                                   UpdatedDate=x.UPDATED_DATE.Value,
-                                   RetailId = x.RETAIL_ID.Value,
-                                   Status = x.STATUS.Value,
-                                   TypeId = x.ID,
-                                   UpdatedBy = x.UPDATED_BY,
-                               }).ToList();
+                                  select new ProductType
+                                  {
+                                      CreatedBy = x.CREATED_BY,
+                                      CreatedDate = x.CREATED_DATE.Value,
+                                      Name = x.TYPE,
+                                      UpdatedDate = x.UPDATED_DATE.Value,
+                                      RetailId = x.RETAIL_ID.Value,
+                                      Status = x.STATUS.Value,
+                                      TypeId = x.ID,
+                                      UpdatedBy = x.UPDATED_BY,
+                                  }).ToList();
             }
             catch (Exception ex)
             {
@@ -96,9 +96,10 @@ namespace BillingLayer.Dao
             try
             {
                 var obj = db.PRODUCT_TYPE.FirstOrDefault(o => o.ID == pId);
-                if (obj != null)
+                int dependencycount = db.PRODUCTS.Count(o => o.TYPE_ID == pId);
+                if (obj != null && dependencycount.Equals(0))
                 {
-                   // obj.STATUS = false;
+                    // obj.STATUS = false;
                     db.PRODUCT_TYPE.Remove(obj);
                     db.SaveChanges();
                     deleteP = 1;

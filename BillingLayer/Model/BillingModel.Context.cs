@@ -34,7 +34,7 @@ namespace BillingLayer.Model
         public virtual DbSet<CART> CARTs { get; set; }
         public virtual DbSet<BILLING> BILLINGS { get; set; }
         public virtual DbSet<RETAILER> RETAILERS { get; set; }
-        public virtual DbSet<PRODUCT> PRODUCTS { get; set; }
         public virtual DbSet<USER> USERS { get; set; }
+        public virtual DbSet<PRODUCT> PRODUCTS { get; set; }
     }
 }

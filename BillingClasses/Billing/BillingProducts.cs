@@ -16,6 +16,8 @@ namespace BillingClasses.Billing
 
         public string ProductName { get; set; }
 
+        public string Code { get; set; }
+
         public int Quantity { get; set; }
 
         public double Price { get; set; }
