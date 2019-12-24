@@ -35,7 +35,5 @@ namespace BillingLayer.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CART> CARTs { get; set; }
         public virtual RETAILER RETAILER { get; set; }
-        public virtual USER USERS1 { get; set; }
-        public virtual USER USER1 { get; set; }
     }
 }

@@ -23,6 +23,7 @@ namespace BillingLayer.Model
             this.CUSTOMERS = new HashSet<CUSTOMER>();
             this.PRODUCT_TYPE = new HashSet<PRODUCT_TYPE>();
             this.PRODUCTS = new HashSet<PRODUCT>();
+            this.USERS = new HashSet<USER>();
         }
     
         public int ID { get; set; }
@@ -54,8 +55,9 @@ namespace BillingLayer.Model
         public virtual ICollection<CUSTOMER> CUSTOMERS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUCT_TYPE> PRODUCT_TYPE { get; set; }
-        public virtual USER USER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUCT> PRODUCTS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<USER> USERS { get; set; }
     }
 }

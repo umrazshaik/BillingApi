@@ -50,8 +50,10 @@ namespace BillingLayer.Dao
                 USER dbuser = new USER();
                 dbuser.NAME = objuser.UserName;
                 dbuser.DISPLAY_NAME = objuser.DisplayName;
+                dbuser.USER_TYPE = objuser.UserType;
                 dbuser.RETAIL_ID = objuser.RetailId;
-                dbuser.STATUS = objuser.Status;
+                dbuser.STATUS =true;
+                dbuser.USER_TYPE = objuser.UserType;
                 dbuser.CREATED_BY = objuser.CreatedBy;
                 dbuser.UPDATED_BY = objuser.UpdatedBy;
                 dbuser.CREATED_DATE = DateTime.Now;
@@ -77,8 +79,6 @@ namespace BillingLayer.Dao
                 {
                     obj.DISPLAY_NAME = objuser.DisplayName;
                     obj.STATUS = objuser.Status;
-                    obj.CREATED_BY = objuser.CreatedBy;
-                    obj.CREATED_DATE = objuser.CreatedDate;
                     obj.UPDATED_BY = objuser.UserName;
                     objuser.UpdatedDate = DateTime.Now;
                     db.SaveChanges();
@@ -111,6 +111,33 @@ namespace BillingLayer.Dao
                 throw ex;
             }
             return userdelete;
+        }
+
+        public int AddAdminUser(int retailerId)
+        {
+            int userid = 0;
+            try
+            {
+                USER dbuser = new USER();
+                dbuser.NAME = "admin";
+                dbuser.DISPLAY_NAME = "admin";
+                dbuser.PASSWORD = "admin";
+                dbuser.RETAIL_ID = retailerId;
+                dbuser.STATUS = true;
+                dbuser.USER_TYPE = "Admin";
+                dbuser.CREATED_BY = "admin";
+                dbuser.UPDATED_BY = "admin";
+                dbuser.CREATED_DATE = DateTime.Now;
+                dbuser.UPDATED_DATE = DateTime.Now;
+                db.USERS.Add(dbuser);
+                db.SaveChanges();
+                userid = dbuser.ID;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return userid;
         }
     }
 }

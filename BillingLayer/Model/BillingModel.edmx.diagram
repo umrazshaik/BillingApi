@@ -22,16 +22,15 @@
         <AssociationConnector Association="BillingAppDBModel.FK_CART_RETAILERS" />
         <AssociationConnector Association="BillingAppDBModel.FK_CUSTOMERS_RETAILERS" />
         <AssociationConnector Association="BillingAppDBModel.FK_PRODUCT_TYPE_RETAILERS" />
-        <EntityTypeShape EntityType="BillingAppDBModel.USER" Width="1.5" PointX="3" PointY="23" />
-        <AssociationConnector Association="BillingAppDBModel.FK_CART_USERS" />
-        <AssociationConnector Association="BillingAppDBModel.FK_USERS_RETAILERS" />
-        <AssociationConnector Association="BillingAppDBModel.FK_USERS_USERS" />
         <EntityTypeShape EntityType="BillingAppDBModel.PRODUCT" Width="1.5" PointX="5.25" PointY="15.625" />
         <AssociationConnector Association="BillingAppDBModel.FK_BILLING_INFO_PRODUCTS" />
         <AssociationConnector Association="BillingAppDBModel.FK_PRODUCTS_BRANDS" />
         <AssociationConnector Association="BillingAppDBModel.FK_CART_PRODUCTS" />
         <AssociationConnector Association="BillingAppDBModel.FK_PRODUCTS_PRODUCT_TYPE" />
         <AssociationConnector Association="BillingAppDBModel.FK_PRODUCTS_RETAILERS" />
+        <EntityTypeShape EntityType="BillingAppDBModel.USER" Width="1.5" PointX="3" PointY="23.125" />
+        <AssociationConnector Association="BillingAppDBModel.FK_CART_USERS" />
+        <AssociationConnector Association="BillingAppDBModel.FK_USERS_RETAILERS" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

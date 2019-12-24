@@ -33,5 +33,32 @@ namespace BillingApi.Controllers
             }
         }
 
+        [HttpPost, Route("addr")]
+        public IHttpActionResult AddRetailer(Retailer objretailer)
+        {
+            try
+            {
+                int id = dao.AddRetailer(objretailer);
+                return Ok(id);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+        [HttpPost, Route("updater")]
+        public IHttpActionResult UpdateRetailer(Retailer objretailer)
+        {
+            try
+            {
+                int id = dao.UpdateRetailer(objretailer);
+                return Ok(id);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
     }
 }

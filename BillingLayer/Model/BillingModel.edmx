@@ -193,7 +193,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BILLING_INFO_PRODUCTS">
-          <End Role="PRODUCTS" Type="Self.PRODUCTS" Multiplicity="0..1" />
+          <End Role="PRODUCTS" Type="Self.PRODUCTS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="BILLING_INFO" Type="Self.BILLING_INFO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PRODUCTS">
@@ -229,7 +231,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BILLINGS_RETAILERS">
-          <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="1" />
+          <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="BILLINGS" Type="Self.BILLINGS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RETAILERS">
@@ -241,7 +245,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BRANDS_RETAILERS">
-          <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="0..1" />
+          <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="BRANDS" Type="Self.BRANDS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RETAILERS">
@@ -265,7 +271,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CART_RETAILERS">
-          <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="1" />
+          <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="CART" Type="Self.CART" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RETAILERS">
@@ -289,7 +297,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CUSTOMERS_RETAILERS">
-          <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="0..1" />
+          <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="CUSTOMERS" Type="Self.CUSTOMERS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RETAILERS">
@@ -301,7 +311,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PRODUCT_TYPE_RETAILERS">
-          <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="0..1" />
+          <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PRODUCT_TYPE" Type="Self.PRODUCT_TYPE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RETAILERS">
@@ -337,7 +349,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PRODUCTS_RETAILERS">
-          <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="0..1" />
+          <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PRODUCTS" Type="Self.PRODUCTS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RETAILERS">
@@ -349,26 +363,16 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERS_RETAILERS">
-          <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="1" />
-          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="RETAILERS" Type="Self.RETAILERS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RETAILERS">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="USERS">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_USERS_USERS">
-          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
-          <End Role="USERS1" Type="Self.USERS" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="USERS">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="USERS1">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="RETAIL_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -443,10 +447,6 @@
           <AssociationSet Name="FK_USERS_RETAILERS" Association="Self.FK_USERS_RETAILERS">
             <End Role="RETAILERS" EntitySet="RETAILERS" />
             <End Role="USERS" EntitySet="USERS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_USERS_USERS" Association="Self.FK_USERS_USERS">
-            <End Role="USERS" EntitySet="USERS" />
-            <End Role="USERS1" EntitySet="USERS" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -582,19 +582,6 @@
             <End Role="RETAILER" EntitySet="RETAILERS" />
             <End Role="PRODUCT_TYPE" EntitySet="PRODUCT_TYPE" />
           </AssociationSet>
-          <EntitySet Name="USERS" EntityType="BillingAppDBModel.USER" />
-          <AssociationSet Name="FK_CART_USERS" Association="BillingAppDBModel.FK_CART_USERS">
-            <End Role="USER" EntitySet="USERS" />
-            <End Role="CART" EntitySet="CARTs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_USERS_RETAILERS" Association="BillingAppDBModel.FK_USERS_RETAILERS">
-            <End Role="RETAILER" EntitySet="RETAILERS" />
-            <End Role="USER" EntitySet="USERS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_USERS_USERS" Association="BillingAppDBModel.FK_USERS_USERS">
-            <End Role="USER" EntitySet="USERS" />
-            <End Role="USER1" EntitySet="USERS" />
-          </AssociationSet>
           <EntitySet Name="PRODUCTS" EntityType="BillingAppDBModel.PRODUCT" />
           <AssociationSet Name="FK_BILLING_INFO_PRODUCTS" Association="BillingAppDBModel.FK_BILLING_INFO_PRODUCTS">
             <End Role="PRODUCT" EntitySet="PRODUCTS" />
@@ -615,6 +602,15 @@
           <AssociationSet Name="FK_PRODUCTS_RETAILERS" Association="BillingAppDBModel.FK_PRODUCTS_RETAILERS">
             <End Role="RETAILER" EntitySet="RETAILERS" />
             <End Role="PRODUCT" EntitySet="PRODUCTS" />
+          </AssociationSet>
+          <EntitySet Name="USERS" EntityType="BillingAppDBModel.USER" />
+          <AssociationSet Name="FK_CART_USERS" Association="BillingAppDBModel.FK_CART_USERS">
+            <End Role="USER" EntitySet="USERS" />
+            <End Role="CART" EntitySet="CARTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERS_RETAILERS" Association="BillingAppDBModel.FK_USERS_RETAILERS">
+            <End Role="RETAILER" EntitySet="RETAILERS" />
+            <End Role="USER" EntitySet="USERS" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="BILLING_INFO">
@@ -646,8 +642,8 @@
           <Property Name="QUANTITY" Type="Int32" Nullable="false" />
           <Property Name="STATUS" Type="Boolean" />
           <NavigationProperty Name="RETAILER" Relationship="BillingAppDBModel.FK_CART_RETAILERS" FromRole="CART" ToRole="RETAILER" />
-          <NavigationProperty Name="USER" Relationship="BillingAppDBModel.FK_CART_USERS" FromRole="CART" ToRole="USER" />
           <NavigationProperty Name="PRODUCT" Relationship="BillingAppDBModel.FK_CART_PRODUCTS" FromRole="CART" ToRole="PRODUCT" />
+          <NavigationProperty Name="USER" Relationship="BillingAppDBModel.FK_CART_USERS" FromRole="CART" ToRole="USER" />
         </EntityType>
         <EntityType Name="BILLING">
           <Key>
@@ -724,8 +720,8 @@
           <NavigationProperty Name="CARTs" Relationship="BillingAppDBModel.FK_CART_RETAILERS" FromRole="RETAILER" ToRole="CART" />
           <NavigationProperty Name="CUSTOMERS" Relationship="BillingAppDBModel.FK_CUSTOMERS_RETAILERS" FromRole="RETAILER" ToRole="CUSTOMER" />
           <NavigationProperty Name="PRODUCT_TYPE" Relationship="BillingAppDBModel.FK_PRODUCT_TYPE_RETAILERS" FromRole="RETAILER" ToRole="PRODUCT_TYPE" />
-          <NavigationProperty Name="USER" Relationship="BillingAppDBModel.FK_USERS_RETAILERS" FromRole="RETAILER" ToRole="USER" />
           <NavigationProperty Name="PRODUCTS" Relationship="BillingAppDBModel.FK_PRODUCTS_RETAILERS" FromRole="RETAILER" ToRole="PRODUCT" />
+          <NavigationProperty Name="USERS" Relationship="BillingAppDBModel.FK_USERS_RETAILERS" FromRole="RETAILER" ToRole="USER" />
         </EntityType>
         <Association Name="FK_BILLINGS_RETAILERS">
           <End Type="BillingAppDBModel.RETAILER" Role="RETAILER" Multiplicity="1" />
@@ -784,62 +780,6 @@
             </Principal>
             <Dependent Role="PRODUCT_TYPE">
               <PropertyRef Name="RETAIL_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="USER">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RETAIL_ID" Type="Int32" />
-          <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DISPLAY_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="PASSWORD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="USER_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="STATUS" Type="Boolean" />
-          <Property Name="CREATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UPDATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
-          <Property Name="UPDATED_DATE" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="CARTs" Relationship="BillingAppDBModel.FK_CART_USERS" FromRole="USER" ToRole="CART" />
-          <NavigationProperty Name="RETAILER" Relationship="BillingAppDBModel.FK_USERS_RETAILERS" FromRole="USER" ToRole="RETAILER" />
-          <NavigationProperty Name="USERS1" Relationship="BillingAppDBModel.FK_USERS_USERS" FromRole="USER" ToRole="USER1" />
-          <NavigationProperty Name="USER1" Relationship="BillingAppDBModel.FK_USERS_USERS" FromRole="USER1" ToRole="USER" />
-        </EntityType>
-        <Association Name="FK_CART_USERS">
-          <End Type="BillingAppDBModel.USER" Role="USER" Multiplicity="0..1" />
-          <End Type="BillingAppDBModel.CART" Role="CART" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USER">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CART">
-              <PropertyRef Name="USER_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_USERS_RETAILERS">
-          <End Type="BillingAppDBModel.RETAILER" Role="RETAILER" Multiplicity="1" />
-          <End Type="BillingAppDBModel.USER" Role="USER" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="RETAILER">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="USER">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_USERS_USERS">
-          <End Type="BillingAppDBModel.USER" Role="USER" Multiplicity="1" />
-          <End Type="BillingAppDBModel.USER" Role="USER1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="USER">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="USER1">
-              <PropertyRef Name="ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -925,6 +865,50 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PRODUCT">
+              <PropertyRef Name="RETAIL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RETAIL_ID" Type="Int32" />
+          <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DISPLAY_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="USER_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="STATUS" Type="Boolean" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UPDATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="UPDATED_DATE" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CARTs" Relationship="BillingAppDBModel.FK_CART_USERS" FromRole="USER" ToRole="CART" />
+          <NavigationProperty Name="RETAILER" Relationship="BillingAppDBModel.FK_USERS_RETAILERS" FromRole="USER" ToRole="RETAILER" />
+        </EntityType>
+        <Association Name="FK_CART_USERS">
+          <End Type="BillingAppDBModel.USER" Role="USER" Multiplicity="0..1" />
+          <End Type="BillingAppDBModel.CART" Role="CART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CART">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERS_RETAILERS">
+          <End Type="BillingAppDBModel.RETAILER" Role="RETAILER" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BillingAppDBModel.USER" Role="USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RETAILER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER">
               <PropertyRef Name="RETAIL_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1082,23 +1066,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="USERS">
-            <EntityTypeMapping TypeName="BillingAppDBModel.USER">
-              <MappingFragment StoreEntitySet="USERS">
-                <ScalarProperty Name="UPDATED_DATE" ColumnName="UPDATED_DATE" />
-                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
-                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
-                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
-                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-                <ScalarProperty Name="USER_TYPE" ColumnName="USER_TYPE" />
-                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
-                <ScalarProperty Name="DISPLAY_NAME" ColumnName="DISPLAY_NAME" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="RETAIL_ID" ColumnName="RETAIL_ID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PRODUCTS">
             <EntityTypeMapping TypeName="BillingAppDBModel.PRODUCT">
               <MappingFragment StoreEntitySet="PRODUCTS">
@@ -1117,6 +1084,23 @@
                 <ScalarProperty Name="CODE" ColumnName="CODE" />
                 <ScalarProperty Name="DISPLAY_NAME" ColumnName="DISPLAY_NAME" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="BillingAppDBModel.USER">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="UPDATED_DATE" ColumnName="UPDATED_DATE" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="USER_TYPE" ColumnName="USER_TYPE" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="DISPLAY_NAME" ColumnName="DISPLAY_NAME" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="RETAIL_ID" ColumnName="RETAIL_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
