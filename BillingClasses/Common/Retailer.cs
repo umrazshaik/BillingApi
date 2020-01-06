@@ -12,6 +12,8 @@ namespace BillingClasses.Common
 
         public string RetailName { get; set; }
 
+        public string GstNo { get; set; }
+
         public string DisplayName { get; set; }
 
         public string Address { get; set; }

@@ -31,6 +31,7 @@ namespace BillingLayer.Dao
                                     PinCode = x.PIN_CODE.Value,
                                     RetailId = x.ID,
                                     RetailName = x.NAME,
+                                    GstNo=x.GST_NO,
                                     DisplayName = x.DISPLAY_NAME,
                                     State = x.STATE,
                                     Status = x.STATUS.Value
@@ -55,6 +56,7 @@ namespace BillingLayer.Dao
                     {
                         RETAILER dbretailer = new RETAILER();
                         dbretailer.NAME = objretailer.RetailName;
+                        dbretailer.GST_NO = objretailer.GstNo;
                         dbretailer.DISPLAY_NAME = objretailer.DisplayName;
                         dbretailer.ADDRESS = objretailer.Address;
                         dbretailer.SHOP_NO = objretailer.ShopNo;
@@ -99,6 +101,7 @@ namespace BillingLayer.Dao
                 if (objr != null)
                 {
                     objr.NAME = objretailer.RetailName;
+                    objr.GST_NO = objretailer.GstNo;
                     objr.DISPLAY_NAME = objretailer.DisplayName;
                     objr.ADDRESS = objretailer.Address;
                     objr.SHOP_NO = objretailer.ShopNo;

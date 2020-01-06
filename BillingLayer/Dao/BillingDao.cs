@@ -19,7 +19,7 @@ namespace BillingLayer.Dao
             {
                 BILLING objbillinfo = new BILLING();
                 Random random = new Random();
-                objbillinfo.BILL_NO = random.Next();
+                objbillinfo.BILL_NO = "BL"+ RandomString(6);
                 objbillinfo.RETAIL_ID = bill.BillInfo.RetailId;
                 objbillinfo.USER_ID = bill.BillInfo.UserId;
                 objbillinfo.CUSTOMER_NAME = bill.BillInfo.CustomerName;
@@ -114,7 +114,7 @@ namespace BillingLayer.Dao
                                 ActualAmount = x.ACTUAL_AMOUNT.Value,
                                 BilledAmount = x.BILLED_AMOUNT.Value,
                                 BillId = x.ID,
-                                BillNo = x.BILL_NO.Value,
+                                BillNo = x.BILL_NO,
                                 CreatedBy = x.CREATED_BY,
                                 CreatedDate = x.CREATED_DATE.Value,
                                 PaidAmount = x.PAID_AMOUNT.Value,
@@ -149,7 +149,7 @@ namespace BillingLayer.Dao
                                    ActualAmount = x.ACTUAL_AMOUNT.Value,
                                    BilledAmount = x.BILLED_AMOUNT.Value,
                                    BillId = x.ID,
-                                   BillNo = x.BILL_NO.Value,
+                                   BillNo = x.BILL_NO,
                                    CreatedBy = x.CREATED_BY,
                                    CreatedDate = x.CREATED_DATE.Value,
                                    CustomerName=x.CUSTOMER_NAME,
@@ -189,6 +189,14 @@ namespace BillingLayer.Dao
                 throw ex;
             }
             return objbill;
+        }
+
+        private static Random random = new Random();
+        public  string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

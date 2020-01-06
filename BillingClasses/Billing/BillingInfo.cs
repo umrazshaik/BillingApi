@@ -10,7 +10,7 @@ namespace BillingClasses.Billing
     {
         public int BillId { get; set; }
 
-        public Int64 BillNo { get; set; }
+        public string BillNo { get; set; }
 
         public int RetailId { get; set; }
 

@@ -22,7 +22,7 @@ namespace BillingLayer.Model
         }
     
         public int ID { get; set; }
-        public Nullable<long> BILL_NO { get; set; }
+        public string BILL_NO { get; set; }
         public int RETAIL_ID { get; set; }
         public Nullable<int> USER_ID { get; set; }
         public string CUSTOMER_NAME { get; set; }
