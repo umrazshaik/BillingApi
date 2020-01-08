@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BillingClasses.Billing;
+using System.Data.Entity;
 
 namespace BillingLayer.Dao
 {
@@ -120,6 +121,41 @@ namespace BillingLayer.Dao
                                 PaidAmount = x.PAID_AMOUNT.Value,
                                 CustomerName=x.CUSTOMER_NAME,
                                 CustMobile=x.CUST_MOBILE.Value,
+                                PaymentType = x.PAYMENT_TYPE,
+                                RetailId = x.RETAIL_ID,
+                                Status = x.STATUS.Value,
+                                TaxAmount = x.TAX_AMOUNT.Value,
+                                UpdatedBy = x.UPDATED_BY,
+                                UpdatedDate = x.UPDATED_DATE.Value,
+                                UserId = x.USER_ID.Value
+                            }).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return lstBills;
+        }
+
+        public List<BillingInfo> GetBillsByDate(int retailerId,DateTime fromdate, DateTime todate)
+        {
+            List<BillingInfo> lstBills = null;
+            try
+            {
+                lstBills = (from x in db.BILLINGS.Where(o => o.RETAIL_ID == retailerId && o.STATUS == true
+                            && DbFunctions.TruncateTime(o.CREATED_DATE) >= DbFunctions.TruncateTime(fromdate) && DbFunctions.TruncateTime(o.CREATED_DATE) <= DbFunctions.TruncateTime(todate))
+                            let fdate = DbFunctions.TruncateTime(x.CREATED_DATE)
+                            select new BillingInfo
+                            {
+                                ActualAmount = x.ACTUAL_AMOUNT.Value,
+                                BilledAmount = x.BILLED_AMOUNT.Value,
+                                BillId = x.ID,
+                                BillNo = x.BILL_NO,
+                                CreatedBy = x.CREATED_BY,
+                                CreatedDate = x.CREATED_DATE.Value,
+                                PaidAmount = x.PAID_AMOUNT.Value,
+                                CustomerName = x.CUSTOMER_NAME,
+                                CustMobile = x.CUST_MOBILE.Value,
                                 PaymentType = x.PAYMENT_TYPE,
                                 RetailId = x.RETAIL_ID,
                                 Status = x.STATUS.Value,

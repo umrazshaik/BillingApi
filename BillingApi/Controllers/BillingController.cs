@@ -33,6 +33,20 @@ namespace BillingApi.Controllers
             }
         }
 
+        [HttpGet, Route("getbillbydates")]
+        public IHttpActionResult GetBillsByDates(int retailerId,string fromdate,string todate)
+        {
+            try
+            {
+                var bills = dao.GetBillsByDate(retailerId,Convert.ToDateTime(fromdate),Convert.ToDateTime(todate));
+                return Ok(bills);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
         [HttpPost, Route("addbill")]
         public IHttpActionResult AddBill([FromBody] Bill objbill)
         {

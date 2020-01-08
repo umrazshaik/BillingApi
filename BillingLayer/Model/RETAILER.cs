@@ -20,10 +20,10 @@ namespace BillingLayer.Model
             this.BRANDS = new HashSet<BRAND>();
             this.CUSTOMERS = new HashSet<CUSTOMER>();
             this.PRODUCT_TYPE = new HashSet<PRODUCT_TYPE>();
-            this.PRODUCTS = new HashSet<PRODUCT>();
             this.USERS = new HashSet<USER>();
             this.BILLINGS = new HashSet<BILLING>();
             this.CARTs = new HashSet<CART>();
+            this.PRODUCTS = new HashSet<PRODUCT>();
         }
     
         public int ID { get; set; }
@@ -53,12 +53,12 @@ namespace BillingLayer.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUCT_TYPE> PRODUCT_TYPE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PRODUCT> PRODUCTS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<USER> USERS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BILLING> BILLINGS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CART> CARTs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PRODUCT> PRODUCTS { get; set; }
     }
 }

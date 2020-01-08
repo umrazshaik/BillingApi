@@ -37,13 +37,14 @@ namespace BillingLayer.Model
         public string UPDATED_BY { get; set; }
         public Nullable<System.DateTime> CREATED_DATE { get; set; }
         public Nullable<System.DateTime> UPDATE_DATE { get; set; }
+        public string DESCRIPTION { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BILLING_INFO> BILLING_INFO { get; set; }
         public virtual BRAND BRAND { get; set; }
-        public virtual PRODUCT_TYPE PRODUCT_TYPE { get; set; }
-        public virtual RETAILER RETAILER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CART> CARTs { get; set; }
+        public virtual PRODUCT_TYPE PRODUCT_TYPE { get; set; }
+        public virtual RETAILER RETAILER { get; set; }
     }
 }

@@ -111,5 +111,64 @@ namespace BillingLayer.Dao
             }
             return deleteP;
         }
+
+        public int ImportProductTypes(List<ProductType> lstTypes)
+        {
+            int isImport = 0; List<string> dbtypes = null;
+            try
+            {
+                int retailId = lstTypes[0].RetailId;
+                var dbProdTypes = db.PRODUCT_TYPE.Where(o => o.RETAIL_ID == retailId).ToList();
+                if (dbProdTypes?.Count > 0)
+                {
+                    dbtypes = dbProdTypes.Select(o => o.TYPE).ToList();
+
+                    foreach (var item in lstTypes)
+                    {
+                        if (dbtypes.Any(o => o.Equals(item.Name, StringComparison.InvariantCultureIgnoreCase)))
+                        {
+                            //update, ntg to update
+                        }
+                        else
+                        {
+                            //insert
+                            PRODUCT_TYPE dbproductType = new PRODUCT_TYPE();
+                            dbproductType.TYPE = item.Name;
+                            dbproductType.RETAIL_ID = retailId;
+                            dbproductType.CREATED_BY = item.CreatedBy;
+                            dbproductType.CREATED_DATE = DateTime.Now;
+                            dbproductType.UPDATED_BY = item.UpdatedBy;
+                            dbproductType.UPDATED_DATE = DateTime.Now;
+                            dbproductType.STATUS = true;
+                            db.PRODUCT_TYPE.Add(dbproductType);
+                        }
+                    }
+                    db.SaveChanges();
+                    isImport = 1;
+                }
+                else
+                {
+                    foreach (var item in lstTypes)
+                    {
+                        PRODUCT_TYPE dbproductType = new PRODUCT_TYPE();
+                        dbproductType.TYPE = item.Name;
+                        dbproductType.RETAIL_ID = retailId;
+                        dbproductType.CREATED_BY = item.CreatedBy;
+                        dbproductType.CREATED_DATE = DateTime.Now;
+                        dbproductType.UPDATED_BY = item.UpdatedBy;
+                        dbproductType.UPDATED_DATE = DateTime.Now;
+                        dbproductType.STATUS = true;
+                        db.PRODUCT_TYPE.Add(dbproductType);
+                    }
+                    db.SaveChanges();
+                    isImport = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return isImport;
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using BillingLayer.Dao;
 using BillingClasses.Common;
+using System.Configuration;
 
 namespace BillingApi.Controllers
 {
@@ -23,16 +24,23 @@ namespace BillingApi.Controllers
         public IHttpActionResult LoginUser(string UserName, string Password)
         {
             var user = new Users();
+            string key = ConfigurationSettings.AppSettings["bill29"];
+            string format = "A9DCF37AED8574A1441FD82DB743765A";
+
             try
             {
-                if (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(Password))
+                bool verify = (!string.IsNullOrEmpty(key) && key == SecurityHelper.PasswordEncrypt(System.Environment.MachineName, format));
+
+                if (verify && !string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(Password))
                 {
                     Users objuser = new Users();
                     objuser.UserName = UserName;
                     objuser.Password = Password;
                     user = dao.LoginUser(objuser);
+                    return Ok(user);
                 }
-                return Ok(user);
+                else
+                    return Content(HttpStatusCode.InternalServerError,"Unauthorize");
             }
             catch (Exception ex)
             {

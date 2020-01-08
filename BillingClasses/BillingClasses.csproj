@@ -47,6 +47,7 @@
     <Compile Include="Billing\BillingTaxInfo.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Common\Cart.cs" />
+    <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Customers.cs" />
     <Compile Include="Common\Retailer.cs" />
     <Compile Include="Common\Users.cs" />

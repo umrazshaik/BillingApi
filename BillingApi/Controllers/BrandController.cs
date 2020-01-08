@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using BillingClasses.Product;
 using BillingLayer.Dao;
+using System.Web;
+using BillingClasses.Common;
 
 namespace BillingApi.Controllers
 {
@@ -70,6 +72,32 @@ namespace BillingApi.Controllers
             {
                 int isDeleted = dao.DeleteBrand(brandId);
                 return Ok(isDeleted);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [HttpPost, Route("import")]
+        public IHttpActionResult ImportBrands(int retailId)
+        {
+            int isImport = 0;
+            try
+            {
+                var httpRequest = HttpContext.Current.Request;
+                if (httpRequest.Files.Count > 0)
+                {
+                    foreach (string file in httpRequest.Files)
+                    {
+                        var postedFile = httpRequest.Files[file];
+                        var dt = Converter.GetDataTableFromExcel(postedFile.InputStream);
+                        List<Brand> lstpords = Converter.ConvertDataTableToList<Brand>(dt, Constants.Brands, retailId);
+                        if (lstpords?.Count > 0)
+                            isImport = dao.ImportBrands(lstpords);
+                    }
+                }
+                return Ok(isImport);
             }
             catch (Exception ex)
             {
