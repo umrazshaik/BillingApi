@@ -104,5 +104,24 @@ namespace BillingApi.Controllers
                 return Content(HttpStatusCode.InternalServerError, ex);
             }
         }
+        [HttpGet, Route("export")]
+        public IHttpActionResult ExportBrands(int retailerId)
+        {
+            try
+            {
+                var brands = dao.GetBrands(retailerId);
+                var datatable = Converter.ExportDataTable(Constants.Brands, brands.ToList());
+                if (datatable?.Rows?.Count > 0)
+                {
+                    //convert to
+                    return Ok(Converter.WritingDataTableToExcel(datatable));
+                }
+                return Ok("");
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.InternalServerError, ex);
+            }
+        }
     }
 }

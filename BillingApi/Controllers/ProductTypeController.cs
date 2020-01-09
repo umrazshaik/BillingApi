@@ -8,6 +8,8 @@ using BillingClasses.Product;
 using BillingLayer.Dao;
 using System.Web;
 using BillingClasses.Common;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace BillingApi.Controllers
 {
@@ -21,7 +23,7 @@ namespace BillingApi.Controllers
             dao = new ProductTypeDao();
         }
 
-        [HttpGet,Route("gett")]
+        [HttpGet, Route("gett")]
         public IHttpActionResult GetProductTypes(int retailerId)
         {
             try
@@ -35,7 +37,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpPost,Route("addt")]
+        [HttpPost, Route("addt")]
         public IHttpActionResult AddProductType([FromBody] ProductType objproductType)
         {
             try
@@ -49,7 +51,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpPost,Route("updatet")]
+        [HttpPost, Route("updatet")]
         public IHttpActionResult UpdateProductType([FromBody] ProductType objproductType)
         {
             try
@@ -63,7 +65,7 @@ namespace BillingApi.Controllers
             }
         }
 
-        [HttpDelete,Route("deletet")]
+        [HttpDelete, Route("deletet")]
         public IHttpActionResult DeleteProductType(int typeId)
         {
             try
@@ -102,5 +104,31 @@ namespace BillingApi.Controllers
                 return Content(HttpStatusCode.InternalServerError, ex);
             }
         }
+
+        [HttpGet, Route("export")]
+        public IHttpActionResult ExportProductTypes(int retailerId)
+        {
+            try
+            {
+                var types = dao.GetProductTypes(retailerId);
+                var datatable = Converter.ExportDataTable(Constants.ProductTypes, types.ToList());
+                if (datatable?.Rows?.Count > 0)
+                {
+                    //convert to
+                    var data = Converter.WritingDataTableToExcel(datatable);
+                    
+
+                    //return ;
+
+                    return Ok(data.ToArray());
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+        
     }
 }

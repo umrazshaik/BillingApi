@@ -63,6 +63,33 @@ namespace BillingLayer.Dao
             return dt;
         }
 
+        public static MemoryStream WritingDataTableToExcel(DataTable dt)
+        {
+            try
+            {
+                var wb = new XLWorkbook();
+                var dataTable = dt;
+                // Add a DataTable as a worksheet
+                wb.Worksheets.Add(dataTable);
+                MemoryStream stream = GetStream(wb);
+                // The method is defined below             
+                return stream;
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                return null;
+            }
+        }
+
+        public static MemoryStream GetStream(XLWorkbook excelWorkbook)
+        {
+            MemoryStream fs = new MemoryStream();
+            excelWorkbook.SaveAs(fs);
+            fs.Position = 0;
+            return fs;
+        }
+
         public static List<T> ConvertDataTableToList<T>(DataTable dt, string tableType, int retailerId)
         {
             List<T> values = new List<T>();
@@ -217,6 +244,122 @@ namespace BillingLayer.Dao
 
                 throw;
             }
+        }
+
+        public static DataTable ExportDataTable<T>(string tableType, List<T> values)
+        {
+            DataTable dt = null;
+            try
+            {
+                if (values?.Count > 0)
+                {
+                    dt = BuildDataTableColumns(tableType);
+                    BuildDataTableRows(tableType, dt, values);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        private static void BuildDataTableRows<T>(string tableType, DataTable dt, List<T> values)
+        {
+            DataRow newRow = null;
+            try
+            {
+                switch (tableType)
+                {
+                    case Constants.ProductTypes:
+                        List<ProductType> types = values as List<ProductType>;
+                        if (types?.Count > 0)
+                        {
+                            foreach (var item in types)
+                            {
+                                newRow = dt.NewRow();
+                                newRow[Constants.Name] = item.Name;
+                                dt.Rows.Add(newRow);
+                            }
+                        }
+                        break;
+                    case Constants.Brands:
+                        List<Brand> lstbrands = values as List<Brand>;
+                        if (lstbrands?.Count > 0)
+                        {
+                            foreach (var item in lstbrands)
+                            {
+                                newRow = dt.NewRow();
+                                newRow[Constants.Name] = item.BrandName;
+                                dt.Rows.Add(newRow);
+                            }
+                        }
+                        break;
+                    case Constants.Products:
+                        List<Product> lstprods = values as List<Product>;
+                        if (lstprods?.Count > 0)
+                        {
+                            foreach (var item in lstprods)
+                            {
+                                newRow = dt.NewRow();
+                                newRow[Constants.Name] = item.Name;
+                                newRow[Constants.DisplayName] = item.DisplayName;
+                                newRow[Constants.Desc] = item.Description;
+                                newRow[Constants.Code] = item.Code;
+                                newRow[Constants.ProdType] = item.TypeName;
+                                newRow[Constants.Brand] = item.BrandName;
+                                newRow[Constants.ActP] = item.ActualCost;
+                                newRow[Constants.SellP] = item.SellingCost;
+                                newRow[Constants.sgst] = item.SGST;
+                                newRow[Constants.cgst] = item.CGST;
+                                dt.Rows.Add(newRow);
+                            }
+                        }
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static DataTable BuildDataTableColumns(string tableType)
+        {
+            DataTable l_columnsDT = new DataTable();
+            try
+            {
+                switch (tableType)
+                {
+                    case Constants.ProductTypes:
+                        l_columnsDT.TableName = Constants.ProductTypes;
+                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.Name, DataType = typeof(String) });
+                        break;
+                    case Constants.Brands:
+                        l_columnsDT.TableName = Constants.Brands;
+                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.Name, DataType = typeof(String) });
+                        break;
+                    case Constants.Products:
+                        l_columnsDT.TableName = Constants.Products;
+                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.Name, DataType = typeof(String) });
+                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.DisplayName, DataType = typeof(String) });
+                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.Desc, DataType = typeof(String) });
+                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.Code, DataType = typeof(String) });
+                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.ProdType, DataType = typeof(String) });
+                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.Brand, DataType = typeof(String) });
+                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.ActP, DataType = typeof(String) });
+                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.SellP, DataType = typeof(String) });
+                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.sgst, DataType = typeof(String) });
+                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.cgst, DataType = typeof(String) });
+                        break;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return l_columnsDT;
         }
     }
 }

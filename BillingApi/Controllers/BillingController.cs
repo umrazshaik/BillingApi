@@ -34,11 +34,39 @@ namespace BillingApi.Controllers
         }
 
         [HttpGet, Route("getbillbydates")]
-        public IHttpActionResult GetBillsByDates(int retailerId,string fromdate,string todate)
+        public IHttpActionResult GetBillsByDates(int retailerId, int days)
         {
             try
             {
-                var bills = dao.GetBillsByDate(retailerId,Convert.ToDateTime(fromdate),Convert.ToDateTime(todate));
+                var bills = dao.GetBillsByDate(retailerId, days);
+                return Ok(bills);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [HttpGet, Route("getdaysreport")]
+        public IHttpActionResult GetDaywiseReport(int retailerId)
+        {
+            try
+            {
+                var bills = dao.GetDaywiseReport(retailerId);
+                return Ok(bills);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [HttpGet, Route("getpaymentsreport")]
+        public IHttpActionResult GetPaymentReport(int retailerId)
+        {
+            try
+            {
+                var bills = dao.GetPaymentReport(retailerId);
                 return Ok(bills);
             }
             catch (Exception ex)

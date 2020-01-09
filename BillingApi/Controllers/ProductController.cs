@@ -8,6 +8,7 @@ using BillingClasses.Product;
 using BillingLayer.Dao;
 using System.Web;
 using BillingClasses.Common;
+using System.IO;
 
 namespace BillingApi.Controllers
 {
@@ -96,6 +97,25 @@ namespace BillingApi.Controllers
                     }
                 }
                 return Ok(isImport);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+        [HttpGet, Route("export")]
+        public IHttpActionResult ExportProducts(int retailerId)
+        {
+            try
+            {
+                var prods = dao.GetProducts(retailerId);
+                var datatable = Converter.ExportDataTable(Constants.Products, prods.ToList());
+                if (datatable?.Rows?.Count > 0)
+                {
+                    //convert to
+                    return Ok(Converter.WritingDataTableToExcel(datatable));
+                }
+                return Ok("");
             }
             catch (Exception ex)
             {

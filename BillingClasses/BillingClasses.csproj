@@ -55,6 +55,7 @@
     <Compile Include="Product\Product.cs" />
     <Compile Include="Product\ProductType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\PaymentReport.cs" />
     <Compile Include="TaxCenter\Tax.cs" />
     <Compile Include="TaxCenter\TaxType.cs" />
   </ItemGroup>

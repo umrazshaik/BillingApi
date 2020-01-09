@@ -26,6 +26,10 @@ namespace BillingClasses.Common
         public const string ActP = "Actual Price";
         public const string sgst = "SGST";
         public const string cgst = "CGST";
+
+        public const string Cash = "Cash";
+        public const string Card = "Card";
+        public const string Online = "Online";
        
     }
 }

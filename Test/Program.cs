@@ -13,12 +13,12 @@ namespace Test
 {
     class Program
     {
-        static void Main(string[] args)
-        {
+        //static void Main(string[] args)
+        //{
 
-            //getexcelfile();
-            GetDataTabletFromCSVFile();
-        }
+        //    //getexcelfile();
+        //    GetDataTabletFromCSVFile();
+        //}
 
         public static void getexcelfile()
         {
@@ -61,6 +61,23 @@ namespace Test
                     }
                 }
             }
+        }
+
+        static void Swap<T>(ref T input1, ref T input2)
+        {
+            T temp = default(T);
+
+            temp = input2;
+            input2 = input1;
+            input1 = temp;
+        }
+
+        static void Main(string[] args)
+        {
+            int first = 4;
+            int second = 5;
+
+            Swap<int>(ref first, ref second);
         }
     }
 }
