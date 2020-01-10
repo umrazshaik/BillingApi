@@ -8,6 +8,8 @@ using BillingClasses.Product;
 using BillingLayer.Dao;
 using System.Web;
 using BillingClasses.Common;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace BillingApi.Controllers
 {
@@ -104,23 +106,31 @@ namespace BillingApi.Controllers
                 return Content(HttpStatusCode.InternalServerError, ex);
             }
         }
+        
         [HttpGet, Route("export")]
-        public IHttpActionResult ExportBrands(int retailerId)
+        public HttpResponseMessage Export(int retailId)
         {
             try
             {
-                var brands = dao.GetBrands(retailerId);
-                var datatable = Converter.ExportDataTable(Constants.Brands, brands.ToList());
+                var data = dao.GetBrands(retailId);
+                var datatable = Converter.ExportDataTable(Constants.Brands, data.ToList());
                 if (datatable?.Rows?.Count > 0)
                 {
                     //convert to
-                    return Ok(Converter.WritingDataTableToExcel(datatable));
+                    MemoryStream memoryStream = Converter.WritingDataTableToExcel(datatable);
+
+                    byte[] excelData = memoryStream.ToArray();
+
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+                    response.Content = new ByteArrayContent(excelData);
+                    response.Content.Headers.ContentLength = excelData.Length;
+                    return response;
                 }
-                return Ok("");
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
             catch (Exception ex)
             {
-                return Content(HttpStatusCode.InternalServerError, ex);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
     }
