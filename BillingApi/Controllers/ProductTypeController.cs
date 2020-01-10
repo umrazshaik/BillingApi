@@ -106,29 +106,34 @@ namespace BillingApi.Controllers
         }
 
         [HttpGet, Route("export")]
-        public IHttpActionResult ExportProductTypes(int retailerId)
+        public HttpResponseMessage Export(int retailId)
         {
             try
             {
-                var types = dao.GetProductTypes(retailerId);
-                var datatable = Converter.ExportDataTable(Constants.ProductTypes, types.ToList());
+                var data = dao.GetProductTypes(retailId);
+                var datatable = Converter.ExportDataTable(Constants.ProductTypes, data.ToList());
                 if (datatable?.Rows?.Count > 0)
                 {
                     //convert to
-                    var data = Converter.WritingDataTableToExcel(datatable);
-                    
+                    MemoryStream memoryStream = Converter.WritingDataTableToExcel(datatable);
 
-                    //return ;
+                    byte[] excelData = memoryStream.ToArray();
 
-                    return Ok(data.ToArray());
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+                    response.Content = new ByteArrayContent(excelData);
+                    response.Content.Headers.ContentLength = excelData.Length;
+                    //response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                    //response.Content.Headers.ContentDisposition.FileName = string.Format("TEMPLATEENTITLEMENTS-{0}.xlsx", Constants.ProductTypes);
+                    //response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                    return response;
                 }
-                return null;
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
             catch (Exception ex)
             {
-                return Content(HttpStatusCode.InternalServerError, ex);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
             }
         }
-        
+
     }
 }
