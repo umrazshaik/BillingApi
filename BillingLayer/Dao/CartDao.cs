@@ -29,6 +29,8 @@ namespace BillingLayer.Dao
                                 UserId =  x.USER_ID.Value,
                                 Quantity = x.QUANTITY,
                                 ProductName = x.PRODUCT.NAME,
+                                Type=x.PRODUCT.PRODUCT_TYPE.TYPE,
+                                Brand=x.PRODUCT.BRAND.NAME,
                                 Price = x.PRODUCT.SELLING_PRICE.Value,
                                 CGST = ((x.PRODUCT.SELLING_PRICE.Value) * (cgst) / 100)* x.QUANTITY,
                                 SGST = ((x.PRODUCT.SELLING_PRICE.Value) * (sgst) / 100)* x.QUANTITY,

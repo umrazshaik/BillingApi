@@ -15,6 +15,10 @@ namespace BillingClasses.Common
 
         public string ProductName { get; set; }
 
+        public string Type { get; set; }
+
+        public string Brand { get; set; }
+
         public int RetailerId { get; set; }
 
         public int? UserId { get; set; }
