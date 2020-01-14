@@ -278,7 +278,7 @@ namespace BillingLayer.Dao
                             foreach (var item in types)
                             {
                                 newRow = dt.NewRow();
-                                newRow[Constants.Name] = item.Name;
+                                newRow[Constants.ProductTypes] = item.Name;
                                 dt.Rows.Add(newRow);
                             }
                         }
@@ -290,7 +290,7 @@ namespace BillingLayer.Dao
                             foreach (var item in lstbrands)
                             {
                                 newRow = dt.NewRow();
-                                newRow[Constants.Name] = item.BrandName;
+                                newRow[Constants.Brands] = item.BrandName;
                                 dt.Rows.Add(newRow);
                             }
                         }
