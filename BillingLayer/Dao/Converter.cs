@@ -122,14 +122,14 @@ namespace BillingLayer.Dao
         {
             try
             {
-                if (dt?.Rows?.Count > 0)
+                if (dt?.Rows?.Count > 0 && dt?.Columns?.Count == 1 && dt.Columns[0].ColumnName == Constants.ProductTypes)
                 {
                     foreach (DataRow item in dt.Rows)
                     {
-                        if (!string.IsNullOrEmpty(item[Constants.Name].ToString().Trim()))
+                        if (!string.IsNullOrEmpty(item[Constants.ProductTypes].ToString().Trim()))
                         {
                             ProductType obj = new ProductType();
-                            obj.Name = item[Constants.Name].ToString().Trim();
+                            obj.Name = item[Constants.ProductTypes].ToString().Trim();
                             obj.RetailId = retailerId;
                             obj.Status = true;
                             obj.CreatedBy = Constants.Admin;
@@ -151,14 +151,14 @@ namespace BillingLayer.Dao
         {
             try
             {
-                if (dt?.Rows?.Count > 0)
+                if (dt?.Rows?.Count > 0 && dt?.Columns?.Count == 1 && dt.Columns[0].ColumnName == Constants.Brands)
                 {
                     foreach (DataRow item in dt.Rows)
                     {
-                        if (!string.IsNullOrEmpty(item[Constants.Name].ToString().Trim()))
+                        if (!string.IsNullOrEmpty(item[Constants.Brands].ToString().Trim()))
                         {
                             Brand obj = new Brand();
-                            obj.BrandName = item[Constants.Name].ToString().Trim();
+                            obj.BrandName = item[Constants.Brands].ToString().Trim();
                             obj.RetailId = retailerId;
                             obj.Status = true;
                             obj.CreatedBy = Constants.Admin;
@@ -183,7 +183,7 @@ namespace BillingLayer.Dao
             List<string> types = db.PRODUCT_TYPE.Select(o => o.TYPE).ToList();
             try
             {
-                if (dt?.Rows?.Count > 0)
+                if (dt?.Rows?.Count > 0 && dt?.Columns.Count > 1)
                 {
                     foreach (DataRow item in dt.Rows)
                     {
@@ -333,11 +333,11 @@ namespace BillingLayer.Dao
                 {
                     case Constants.ProductTypes:
                         l_columnsDT.TableName = Constants.ProductTypes;
-                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.Name, DataType = typeof(String) });
+                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.ProductTypes, DataType = typeof(String) });
                         break;
                     case Constants.Brands:
                         l_columnsDT.TableName = Constants.Brands;
-                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.Name, DataType = typeof(String) });
+                        l_columnsDT.Columns.Add(new DataColumn() { ColumnName = Constants.Brands, DataType = typeof(String) });
                         break;
                     case Constants.Products:
                         l_columnsDT.TableName = Constants.Products;
@@ -362,4 +362,5 @@ namespace BillingLayer.Dao
             return l_columnsDT;
         }
     }
+
 }
