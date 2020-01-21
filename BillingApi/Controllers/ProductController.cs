@@ -111,7 +111,7 @@ namespace BillingApi.Controllers
             {
                 var data = dao.GetProducts(retailId);
                 var datatable = Converter.ExportDataTable(Constants.Products, data.ToList());
-                if (datatable?.Rows?.Count > 0)
+                if (datatable?.Columns.Count > 0)
                 {
                     //convert to
                     MemoryStream memoryStream = Converter.WritingDataTableToExcel(datatable);
