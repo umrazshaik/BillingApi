@@ -10,7 +10,12 @@ namespace BillingLayer.Dao
 {
     public class logindao
     {
-        BillingAppDBEntities db = new BillingAppDBEntities();
+       private readonly BillingAppDBEntities db =null;
+
+        public logindao()
+        {
+            db = DataBase.GetInstance;
+        }
 
         public Users LoginUser(Users objuser)
         {

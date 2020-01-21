@@ -12,7 +12,11 @@ namespace BillingLayer.Dao
 {
     public class BillingDao
     {
-        BillingAppDBEntities db = new BillingAppDBEntities();
+        private readonly BillingAppDBEntities db = null;
+        public BillingDao()
+        {
+            db = DataBase.GetInstance;
+        }
 
         public int AddBilling(Bill bill)
         {

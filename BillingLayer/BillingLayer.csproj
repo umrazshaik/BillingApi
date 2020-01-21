@@ -82,6 +82,7 @@
     <Compile Include="Dao\BrandsDao.cs" />
     <Compile Include="Dao\CartDao.cs" />
     <Compile Include="Dao\Converter.cs" />
+    <Compile Include="Dao\DataBase.cs" />
     <Compile Include="Dao\logindao.cs" />
     <Compile Include="Dao\ProductDao.cs" />
     <Compile Include="Dao\ProductTypeDao.cs" />

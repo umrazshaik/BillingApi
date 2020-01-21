@@ -11,7 +11,11 @@ namespace BillingLayer.Dao
 {
     public class CartDao
     {
-        BillingAppDBEntities db = new BillingAppDBEntities();
+        private readonly BillingAppDBEntities db = null;
+        public CartDao()
+        {
+            db = DataBase.GetInstance;
+        }
 
         public List<Cart> GetCarts(int retailerId)
         {
