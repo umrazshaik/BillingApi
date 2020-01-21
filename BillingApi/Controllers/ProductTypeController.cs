@@ -18,9 +18,9 @@ namespace BillingApi.Controllers
     {
         private readonly ProductTypeDao dao;
 
-        public ProductTypeController()
+        public ProductTypeController(ProductTypeDao objdao)
         {
-            dao = new ProductTypeDao();
+            dao = objdao;
         }
 
         [HttpGet, Route("gett")]

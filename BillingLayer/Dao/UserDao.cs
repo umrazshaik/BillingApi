@@ -10,7 +10,11 @@ namespace BillingLayer.Dao
 {
    public class UserDao
     {
-        BillingAppDBEntities db = new BillingAppDBEntities();
+        private readonly BillingAppDBEntities db = null;
+        public UserDao()
+        {
+            db = DataBase.GetInstance;
+        }
 
         public List<Users> GetUsers(int retailerId)
         {

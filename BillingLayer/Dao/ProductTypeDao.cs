@@ -10,7 +10,11 @@ namespace BillingLayer.Dao
 {
     public class ProductTypeDao
     {
-        BillingAppDBEntities db = new BillingAppDBEntities();
+        private readonly BillingAppDBEntities db = null;
+        public ProductTypeDao()
+        {
+            db = DataBase.GetInstance;
+        }
 
         public List<ProductType> GetProductTypes(int retailerId)
         {

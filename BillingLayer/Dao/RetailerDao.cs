@@ -10,8 +10,11 @@ namespace BillingLayer.Dao
 {
     public class RetailerDao
     {
-        BillingAppDBEntities db = new BillingAppDBEntities();
-
+        private readonly BillingAppDBEntities db = null;
+        public RetailerDao()
+        {
+            db = DataBase.GetInstance;
+        }
         public Retailer GetRetailerDetails()
         {
             try
