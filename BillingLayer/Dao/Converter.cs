@@ -251,9 +251,9 @@ namespace BillingLayer.Dao
             DataTable dt = null;
             try
             {
+                dt = BuildDataTableColumns(tableType);
                 if (values?.Count > 0)
                 {
-                    dt = BuildDataTableColumns(tableType);
                     BuildDataTableRows(tableType, dt, values);
                 }
             }
