@@ -7,6 +7,7 @@ using System.Web.Http;
 using BillingLayer.Dao;
 using BillingClasses.Common;
 using System.Configuration;
+using BillingApi.Filters;
 
 namespace BillingApi.Controllers
 {
@@ -26,7 +27,7 @@ namespace BillingApi.Controllers
             var user = new Users();
             string key = ConfigurationSettings.AppSettings["bill29"];
             string format = "A9DCF37AED8574A1441FD82DB743765A";
-
+            string Token = string.Empty;
             try
             {
                 bool verify = (!string.IsNullOrEmpty(key) && key == SecurityHelper.PasswordEncrypt(System.Environment.MachineName, format));
@@ -37,6 +38,10 @@ namespace BillingApi.Controllers
                     objuser.UserName = UserName;
                     objuser.Password = Password;
                     user = dao.LoginUser(objuser);
+                    if(user!=null)
+                    {
+                        Token = TokenManager.GenerateToken(user.UserName);
+                    }
                     return Ok(user);
                 }
                 else
