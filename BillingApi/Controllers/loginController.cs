@@ -31,25 +31,51 @@ namespace BillingApi.Controllers
             try
             {
                 bool verify = (!string.IsNullOrEmpty(key) && key == SecurityHelper.PasswordEncrypt(System.Environment.MachineName, format));
-
-                if (verify && !string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(Password))
+                if (!verify)
+                    return Content(HttpStatusCode.InternalServerError, "Not Authorized Retailer");
+                else if (verify && !string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(Password))
                 {
                     Users objuser = new Users();
                     objuser.UserName = UserName;
                     objuser.Password = Password;
                     user = dao.LoginUser(objuser);
-                    if(user!=null)
+                    if (user != null)
                     {
                         Token = TokenManager.GenerateToken(user.UserName);
                     }
-                    return Ok(user);
+                    else
+                        return Content(HttpStatusCode.InternalServerError, "Incorrect credentials");
+                    return Ok(Token);
                 }
                 else
-                    return Content(HttpStatusCode.InternalServerError,"Unauthorize");
+                    return Content(HttpStatusCode.InternalServerError, "Empty or Invalid Inputs");
             }
             catch (Exception ex)
             {
                 return Content(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+        [AuthenticationFilter]
+        [HttpGet, Route("getu/{UserName}/{Password}")]
+        public IHttpActionResult GetUser(string UserName, string Password)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(Password))
+                {
+                    Users objuser = new Users();
+                    objuser.UserName = UserName;
+                    objuser.Password = Password;
+                    var user = dao.LoginUser(objuser);
+                    return Ok(user);
+                }
+                else
+                    return Content(HttpStatusCode.InternalServerError, "Unauthorize");
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
         }
     }
