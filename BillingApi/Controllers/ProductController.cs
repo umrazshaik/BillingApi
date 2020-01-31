@@ -9,9 +9,11 @@ using BillingLayer.Dao;
 using System.Web;
 using BillingClasses.Common;
 using System.IO;
+using BillingApi.Filters;
 
 namespace BillingApi.Controllers
 {
+    [AuthorizationFilter]
     [RoutePrefix("api/product")]
     public class ProductController : ApiController
     {

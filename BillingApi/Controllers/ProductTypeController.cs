@@ -10,9 +10,11 @@ using System.Web;
 using BillingClasses.Common;
 using System.IO;
 using System.Net.Http.Headers;
+using BillingApi.Filters;
 
 namespace BillingApi.Controllers
 {
+    [AuthorizationFilter]
     [RoutePrefix("api/productType")]
     public class ProductTypeController : ApiController
     {
@@ -65,7 +67,7 @@ namespace BillingApi.Controllers
                 return Content(HttpStatusCode.InternalServerError, ex);
             }
         }
-
+        //[AuthorizationFilter(Role=new string[] { "admin","manager" })]
         [HttpDelete, Route("deletet")]
         public IHttpActionResult DeleteProductType(int typeId)
         {

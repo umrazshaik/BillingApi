@@ -26,7 +26,7 @@ namespace BillingApi.Filters
 
 
 
-                authHeader = Encoding.Default.GetString(Convert.FromBase64String(authHeader));
+                authHeader = Encoding.Default.GetString(Convert.FromBase64String(auth));
 
                 var tokens = authHeader.Split(':');
                 var identity = new BasicAuthenticationIdentity(tokens[0], tokens[1]);

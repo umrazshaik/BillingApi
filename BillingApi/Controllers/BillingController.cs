@@ -6,9 +6,11 @@ using System.Net.Http;
 using System.Web.Http;
 using BillingClasses.Billing;
 using BillingLayer.Dao;
+using BillingApi.Filters;
 
 namespace BillingApi.Controllers
 {
+    [AuthorizationFilter]
     [RoutePrefix("api/billing")]
     public class BillingController : ApiController
     {

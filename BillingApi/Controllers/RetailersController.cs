@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using BillingClasses.Common;
 using BillingLayer.Dao;
+using BillingApi.Filters;
 
 namespace BillingApi.Controllers
 {
@@ -18,7 +19,7 @@ namespace BillingApi.Controllers
         {
             dao = new RetailerDao();
         }
-
+        [AuthorizationFilter]
         [HttpGet,Route("getr")]
         public IHttpActionResult GetRetailer()
         {
@@ -46,6 +47,7 @@ namespace BillingApi.Controllers
                 return Content(HttpStatusCode.InternalServerError, ex);
             }
         }
+        [AuthorizationFilter]
         [HttpPost, Route("updater")]
         public IHttpActionResult UpdateRetailer(Retailer objretailer)
         {

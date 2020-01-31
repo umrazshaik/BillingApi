@@ -6,31 +6,34 @@ using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using BillingApi.Filters;
+using System.Net;
 
 namespace BillingApi.Filters
 {
     public class AuthorizationFilter : ActionFilterAttribute
     {
+        public string[] Role { get; set; }
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
+
             string tokenparameter = null; string token = null;
             try
             {
-                var auth = actionContext.Request.Headers.Authorization.Parameter;
+                var auth = actionContext.Request.Headers.Authorization;
                 if (auth != null)
-                    tokenparameter = auth;
+                    tokenparameter = auth.Parameter;
 
                 tokenparameter = Encoding.Default.GetString(Convert.FromBase64String(tokenparameter));
 
-                var tokens = tokenparameter.Split(':');
 
-                if (tokenparameter.Length > 0)
-                    token = tokenparameter[0].ToString();
+                if (!string.IsNullOrEmpty(tokenparameter))
+                    token = tokenparameter.ToString();
 
                 string isvalid = TokenManager.ValidateToken(token);
-
                 if (string.IsNullOrEmpty(isvalid))
-                    throw new Exception("Invalid Token");
+                    throw new UnauthorizedAccessException();
+
+                //bool isadminuser = (!string.IsNullOrEmpty(Role) && Role.Equals(isvalid[1].ToString(), StringComparison.InvariantCultureIgnoreCase)); 
 
             }
             catch (Exception ex)

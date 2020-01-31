@@ -55,7 +55,7 @@ namespace BillingApi.Controllers
                 return Content(HttpStatusCode.InternalServerError, ex);
             }
         }
-        [AuthenticationFilter]
+        [AuthorizationFilter]
         [HttpGet, Route("getu/{UserName}/{Password}")]
         public IHttpActionResult GetUser(string UserName, string Password)
         {

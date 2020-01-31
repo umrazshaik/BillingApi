@@ -10,9 +10,11 @@ using System.Web;
 using BillingClasses.Common;
 using System.IO;
 using System.Net.Http.Headers;
+using BillingApi.Filters;
 
 namespace BillingApi.Controllers
 {
+    [AuthorizationFilter]
     [RoutePrefix("api/brands")]
     public class BrandController : ApiController
     {
