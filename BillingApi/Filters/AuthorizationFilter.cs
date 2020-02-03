@@ -13,6 +13,7 @@ namespace BillingApi.Filters
     public class AuthorizationFilter : ActionFilterAttribute
     {
         public string[] Role { get; set; }
+        public static string ResponseType { get; set; }
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
 
@@ -21,7 +22,10 @@ namespace BillingApi.Filters
             {
                 var auth = actionContext.Request.Headers.Authorization;
                 if (auth != null)
+                {
                     tokenparameter = auth.Parameter;
+                    ResponseType = actionContext.Request.Headers.Accept.ToString();
+                }
 
                 tokenparameter = Encoding.Default.GetString(Convert.FromBase64String(tokenparameter));
 

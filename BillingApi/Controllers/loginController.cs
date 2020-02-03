@@ -67,6 +67,13 @@ namespace BillingApi.Controllers
                     objuser.UserName = UserName;
                     objuser.Password = Password;
                     var user = dao.LoginUser(objuser);
+                    //switch(AuthorizationFilter.ResponseType)
+                    //{
+                    //    case Constants.Json:
+                    //        return Content(HttpStatusCode.OK, user, Configuration.Formatters.JsonFormatter);
+                    //    case Constants.Xml:
+                    //        return Content(HttpStatusCode.OK, user, Configuration.Formatters.XmlFormatter);
+                    //}
                     return Ok(user);
                 }
                 else

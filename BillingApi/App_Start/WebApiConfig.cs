@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Configuration;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Http.Routing;
 
 namespace BillingApi
 {
@@ -17,6 +18,11 @@ namespace BillingApi
             config.MapHttpAttributeRoutes();
             var cors = new EnableCorsAttribute(WebConfigurationManager.AppSettings["AllowedCrossOrigins"], "*", "*", "Content-Disposition");
             config.EnableCors(cors);
+
+            //var constraintResolver = new DefaultInlineConstraintResolver();
+            //constraintResolver.ConstraintMap.Add("nonzero", typeof(NonZeroConstraint));
+
+
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

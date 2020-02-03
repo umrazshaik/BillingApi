@@ -30,6 +30,10 @@ namespace BillingClasses.Common
         public const string Cash = "Cash";
         public const string Card = "Card";
         public const string Online = "Online";
-       
+
+        public const string Json = "application/json";
+        public const string Xml = "application/xml";
+
+
     }
 }
